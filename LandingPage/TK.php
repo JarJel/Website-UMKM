@@ -155,12 +155,12 @@ $nama_sekolah = "TK Raudhatul Jannah";
     </nav>
 
     <div class="pt-[]">
-        <section id="beranda" class="text-white py-20 px-6 text-center rounded-b-xl shadow-lg min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('image/back-sd2.png');">
+        <section id="beranda" class="text-white py-20 px-6 text-center rounded-b-xl shadow-lg min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('image/background-tk4.png');">
             <div class="max-w-4xl mx-auto p-8 rounded-xl">
                 <!-- Tambahkan kelas animasi di sini -->
                 <p class="text-lg md:text-xl mb-2 drop-shadow-md font-bold text-black slide-in-left">Student</p>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-md text-[#FBA518] fade-in-scale delay-1">Dashboard</h1>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-md text-[#FBA518] fade-in-scale delay-2"><?php echo $nama_sekolah; ?></h1>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg text-[#FBA518] fade-in-scale delay-1">Dashboard</h1>
+                <h1 class="text-4xl md:text-7xl font-extrabold leading-tight mb-6 drop-shadow-lg text-[#FBA518] fade-in-scale delay-2"><?php echo $nama_sekolah; ?></h1>
                 <!-- Tambahkan id 'mulaiSekarangBtn' pada tombol -->
                 <a href="#dashboard" id="mulaiSekarangBtn" class="inline-block bg-[#FBA518] text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 bounce-in">Mulai Sekarang</a>
             </div>
@@ -186,6 +186,14 @@ $nama_sekolah = "TK Raudhatul Jannah";
                     <div class="relative mt-2">
                         <!-- Tombol ini akan membuka modal untuk TK B -->
                         <button class="bg-[#FBA518] px-3 py-1 text-white rounded text-sm border border-gray-300 open-kelas-modal-btn" data-kelas="TKB">Pilih Kelas TK B</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center relative">
+                    <img src="image/card-kbtk.png" alt="Dashboard TK B Grade" class="w-40 h-40 object-cover rounded">
+                    <div class="relative mt-2">
+                        <!-- Tombol ini akan membuka modal untuk KB-TK -->
+                        <button class="bg-[#FBA518] px-3 py-1 text-white rounded text-sm border border-gray-300 open-kelas-modal-btn" data-kelas="TKB">Pilih KB-TK</button>
                     </div>
                 </div>
 
@@ -254,7 +262,7 @@ $nama_sekolah = "TK Raudhatul Jannah";
                         <input type="hidden" name="unit_asal" value="TK">
                         <input type="hidden" name="redirect_url" value="tk.php"> <div>
 
-                        <button type="submit" class="bg-[#27445D] text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-orange-600 transition duration-300">Kirim Pesan</button>
+                        <button type="submit" class="bg-black text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-orange-600 transition duration-300">Kirim Pesan</button>
                     </form>
                 </div>
             </div>
