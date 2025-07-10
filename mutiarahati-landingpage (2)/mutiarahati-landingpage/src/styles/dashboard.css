@@ -1,0 +1,243 @@
+/* Dashboard Page Container */
+.dashboard-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.dashboard-page-container {
+  width: 100%;
+}
+
+/* ========== DASHBOARD HERO STYLES ========== */
+.dashboard-hero-container {
+  width: 100%;
+}
+
+/* Header Styles */
+.dashboard-header {
+  background: white;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-bottom: 4px solid #6366f1;
+}
+
+.dashboard-header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dashboard-logo-container {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  padding: 0.75rem;
+  border-radius: 50%;
+}
+
+.dashboard-logo-icon {
+  width: 2rem;
+  height: 2rem;
+  color: white;
+}
+
+.dashboard-title-section h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.dashboard-title-section p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.dashboard-time-section {
+  text-align: right;
+}
+
+.dashboard-time {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dashboard-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Hero Section */
+.dashboard-hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
+  color: white;
+  padding: 4rem 0;
+}
+
+.dashboard-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-hero-content {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.dashboard-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dashboard-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dashboard-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  width: fit-content;
+}
+
+.dashboard-hero-badge-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+.dashboard-hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-hero-title {
+    font-size: 3.75rem;
+  }
+}
+
+.dashboard-hero-title-highlight {
+  display: block;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-hero-description {
+  font-size: 1.25rem;
+  color: #bfdbfe;
+  line-height: 1.7;
+  max-width: 32rem;
+}
+
+.dashboard-hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dashboard-btn-primary {
+  background: white;
+  color: #6366f1;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.dashboard-btn-primary:hover {
+  background: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+.dashboard-btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-btn-primary:hover .dashboard-btn-icon {
+  transform: translateX(4px);
+}
+
+.dashboard-btn-secondary {
+  border: 2px solid white;
+  color: white;
+  background: transparent;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboard-btn-secondary:hover {
+  background: white;
+  color: #6366f1;
+}
+
+/* Hero Visual Preview */
+.dashboard-hero-visual {
+  position: relative;
+}
+
+.dashboard-preview-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transform: rotate(3deg);
+  transition: transform 0.5s ease;
+}
+
+.dashboard-preview-card:hover {
+  transform: rotate(0deg);
+}
+
+.dashboard-preview-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.dashboard-preview-header {
+  display: flex;
+  align-items: center
+}
