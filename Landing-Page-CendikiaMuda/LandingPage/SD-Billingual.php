@@ -186,14 +186,12 @@
             </a>
 
             <!-- Navigasi (Hamburger Menu for Mobile) -->
-            <div class="flex items-center space-x-4">
+            <div class="hidden md:flex space-x-8">
                 <a href="#beranda" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Beranda</a>
                 <a href="#kelas" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Kelas Kami</a>
                 <a href="#program" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Program</a>
-                <a href="#galeri-video" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>
-                <p class="text-white px-3 py-1 rounded-lg bg-[#0987c6]">Makassar</p>
+                <a href="#galeri-video" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>            
             </div>
-
 
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
@@ -219,7 +217,7 @@
                 Dashboard
             </h1>
             <p class="text-3xl md:text-6xl font-extrabold text-[#0987c6] mb-10 max-w-2xl drop-shadow-md">
-                SD ISLAM CENDEKIA MUDA MAKASSAR
+                SD ISLAM CENDEKIA MUDA MAKASAR
             </p>
             <a href="#kelas" class="bg-white hover:bg-[#6bdd38] text-[#0987c6] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
                 Mulai Sekarang
@@ -253,19 +251,7 @@
                 <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
                     Dashboard Level 2
                 </a>
-            </div>
-
-            <!-- Card Kelas 3 -->
-            <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/kelas3.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';" alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 3</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
-                </p>
-                <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
-                    Dashboard Level 3
-                </a>
-            </div>
+            </div>  
         </div>
     </section>
 

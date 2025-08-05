@@ -191,16 +191,20 @@
     <section id="beranda"
         class="hero-background py-20 md:py-32 text-center mb-12 min-h-[500px] md:min-h-[630px] flex flex-col justify-center">
         <div class="hero-content text-white text-left px-6">
-            <h1 class="text-xl md:text-4xl font-extrabold leading-tight mb-6 drop-shadow-lg">
+            <h1 class="text-xl md:text-4xl font-extrabold leading-tight sm:mb-3 drop-shadow-lg">
                 Dashboard
             </h1>
-            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] mb-10 max-w-2xl drop-shadow-md">
+            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] sm:mb-3  max-w-xs sm:max-w-sm md:max-w-2xl break-words drop-shadow-md leading-snug">
                 SD ISLAM CENDEKIA MUDA
             </p>
             <a href="#kelas"
-                class="inline-block bg-white hover:bg-[#d62037] text-[#d62037] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
+                class="inline-block bg-white hover:bg-[#d62037] text-[#d62037] hover:text-white font-bold 
+                py-2 px-5 text-base rounded-full 
+                sm:py-3 sm:px-8 sm:text-lg 
+                transition duration-900 transform hover:scale-105 shadow-lg">
                 Mulai Sekarang
             </a>
+
         </div>
     </section>
 
@@ -237,7 +241,7 @@
                         pelajaran.
                     </p>
                 </div>
-                <a href="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel2/home"
+                <a href="SD-Makasar.php"
                     class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full md:w-auto text-sm md:text-base">
                     SD Islam Cendekia Muda Makasar
                 </a>
@@ -254,8 +258,8 @@
                         mereka tentang budaya yang terkait dengan bahasa tersebut.
                     </p>
                 </div>
-                <a href="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel3/home"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full md:w-auto text-sm md:text-base">
+                <a href="SD-Billingual"
+                    class="dashboard-link target="_blank" inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full md:w-auto text-sm md:text-base">
                     SD Islam Cendekia Muda Program Bilingual
                 </a>
             </div>
