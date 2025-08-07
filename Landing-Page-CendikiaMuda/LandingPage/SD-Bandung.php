@@ -245,27 +245,34 @@
 
     <button id="scrollToTopBtn" title="Kembali ke Atas">↑</button>
 
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+    <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
                 <img src="../image/logoSd1.png" alt="Logo Sekolah" class="h-20 w-30">
             </a>
 
-            <div class="flex items-center space-x-4">
-                <a href="#beranda" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Beranda</a>
-                <a href="#kelas" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Kelas Kami</a>
-                <a href="#program" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Program</a>
-                <a href="#galeri-video" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>
-                <p class="text-white px-3 py-1 rounded-lg bg-[#d62037]">Bandung</p>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#beranda"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Beranda</a>
+                <a href="#kelas"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Kelas Kami</a>
+                <a href="#program"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Program</a>
+                <a href="#galeri-video"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>
             </div>
 
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
-            </button>
+            <div class="flex items-center space-x-4">
+                <p class="text-white px-3 py-1 rounded-lg bg-[#d62037]">Bandung</p>
+
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </nav>
 
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 px-4 pb-4 bg-white rounded-lg shadow-lg">
@@ -277,18 +284,17 @@
             <a href="#program"
                 class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Program</a>
             <a href="#galeri-video"
-                class="text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
-            <p class="text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Bandung</p>
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
         </div>
     </header>
 
     <section id="beranda"
         class="hero-background py-20 md:py-32 text-center mb-12 h-[500px] md:h-[630px] flex flex-col justify-center">
         <div class="hero-content text-white text-left max-w-4xl px-6">
-            <h1 class="text-lg md:text-4xl font-extrabold leading-tight mb-6 drop-shadow-lg">
+            <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-4 drop-shadow-lg">
                 Dashboard
             </h1>
-            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] mb-10 max-w-2xl drop-shadow-md">
+            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] mb-8 max-w-2xl drop-shadow-md">
                 SD ISLAM CENDEKIA MUDA BANDUNG
             </p>
             <a href="#kelas"
@@ -299,106 +305,149 @@
     </section>
 
     <section id="kelas"
-        class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#d62037] rounded-lg shadow-xl text-center">
-        <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg text-white mb-10">Pilihan <span
-                class="text-[#313556] drop-shadow-lg">Kelas Kami</span> </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/11.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+1';"
-                    alt="Icon Kelas 1" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 1</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Memperkenalkan dasar-dasar membaca, menulis, dan berhitung dengan metode yang menyenangkan dan
-                    interaktif.
-                </p>
-                <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel1/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel1/home">
-                    Dashboard Level 1
-                </a>
-            </div>
+    class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#d62037] rounded-lg shadow-xl text-center text-white relative overflow-hidden">
+    <style>
+        /* Pseudo-element untuk gambar latar belakang abstrak */
+        #kelas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Ganti 'URL_GAMBAR_ANDA' dengan URL gambar abstrak Anda */
+            background-image: url('../image/back1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Sesuaikan opasitas agar warna latar belakang solid terlihat */
+            opacity: 0.6; /* Anda bisa mengubah nilai ini (0.0 - 1.0) */
+            z-index: 0;
+            border-radius: inherit; /* Mewarisi border-radius dari section */
+        }
 
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/12.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+2';"
-                    alt="Icon Kelas 2" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 2</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Pengembangan kemampuan dasar dengan fokus pada pemecahan masalah dan kreativitas dalam setiap
-                    pelajaran.
-                </p>
-                 <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel2/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel2/home">
-                    Dashboard Level 2
-                </a>
-            </div>
+        /* Pastikan semua konten langsung di dalam section berada di atas lapisan latar belakang */
+        #kelas > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/13.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
-                    alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 3</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
-                </p>
-                 <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel3/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel3/home">
-                    Dashboard Level 3
-                </a>
-            </div>
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/14.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
-                    alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 4</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
-                </p>
-                 <a href="https://sites.google.com/cendekiamuda.sch.id/2526-site-level-4/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel4/home">
-                    Dashboard Level 4
-                </a>
-            </div>
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/15.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
-                    alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 5</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
-                </p>
-                 <a href="https://sites.google.com/cendekiamuda.sch.id/2526-site-level-5/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425-site-level-5/home">
-                    Dashboard Level 5
-                </a>
-            </div>
-            <div
-                class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/16.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
-                    alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 6</h3>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
-                </p>
-                 <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel6/"
-                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
-                    data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel6/home-20252026">
-                    Dashboard Level 6
-                </a>
-            </div>
+    <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg mb-10">Pilihan <span
+            class="drop-shadow-lg">Kelas Kami</span> </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/11.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+1';"
+                alt="Icon Kelas 1" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 1</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Memperkenalkan dasar-dasar membaca, menulis, dan berhitung dengan metode yang menyenangkan dan
+                interaktif.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel1/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel1/home">
+                Dashboard Level 1
+            </a>
         </div>
-    </section>
+
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/12.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+2';"
+                alt="Icon Kelas 2" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 2</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Pengembangan kemampuan dasar dengan fokus pada pemecahan masalah dan kreativitas dalam setiap
+                pelajaran.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel2/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel2/home">
+                Dashboard Level 2
+            </a>
+        </div>
+
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/13.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
+                alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 3</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel3/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel3/home">
+                Dashboard Level 3
+            </a>
+        </div>
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/14.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
+                alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 4</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526-site-level-4/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel4/home">
+                Dashboard Level 4
+            </a>
+        </div>
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/15.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
+                alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 5</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526-site-level-5/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2425-site-level-5/home">
+                Dashboard Level 5
+            </a>
+        </div>
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/16.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
+                alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 6</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel6/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel6/home-20252026">
+                Dashboard Level 6
+            </a>
+        </div>
+        <div
+            class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
+            <img src="../image/19.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';"
+                alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Ekstrakurikuler</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
+            </p>
+            <a href="https://sites.google.com/cendekiamuda.sch.id/2526siteekskul/"
+                class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300"
+                data-dashboard-url="https://sites.google.com/cendekiamuda.sch.id/2526sitelevel6/home-20252026">
+                Dashboard Ekstrakurikuler
+            </a>
+        </div>
+    </div>
+</section>
+
 
     <section id="program" class="bg-white py-16 mb-12 rounded-lg shadow-xl">
         <div class="container mx-auto px-6 md:px-12 text-center">
@@ -406,7 +455,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">📚</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Kurikulum Inovatif</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">📚</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Kurikulum Inovatif</h3>
                     <p class="text-gray-600">
                         Menggabungkan teori dan praktik dengan pendekatan berbasis proyek untuk pembelajaran yang
                         mendalam.
@@ -414,35 +464,40 @@
                 </div>
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">🔬</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Fasilitas Modern</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">🔬</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Fasilitas Modern</h3>
                     <p class="text-gray-600">
                         Laboratorium canggih, perpustakaan digital, dan ruang kelas interaktif mendukung proses belajar.
                     </p>
                 </div>
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">🎨</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Ekstrakurikuler Beragam</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">🎨</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Ekstrakurikuler Beragam</h3>
                     <p class="text-gray-600">
                         Mengembangkan bakat dan minat siswa melalui berbagai klub dan kegiatan.
                     </p>
                 </div>
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">🤝</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Bimbingan Karir</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">🤝</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Bimbingan Karir</h3>
                     <p class="text-gray-600">
                         Membantu siswa merencanakan masa depan mereka dengan bimbingan karir personal.
                     </p>
                 </div>
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">🌍</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Program Internasional</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">🌍</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Program Internasional</h3>
                     <p class="text-gray-600">
                         Kesempatan pertukaran pelajar dan kolaborasi global untuk pengalaman yang lebih luas.
                     </p>
                 </div>
                 <div
                     class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-                    <div class="text-indigo-500 text-5xl mb-4">🏆</div> <h3 class="text-xl font-semibold text-[#313556] mb-3">Pendidikan Holistik</h3>
+                    <div class="text-indigo-500 text-5xl mb-4">🏆</div>
+                    <h3 class="text-xl font-semibold text-[#313556] mb-3">Pendidikan Holistik</h3>
                     <p class="text-gray-600">
                         Fokus pada pengembangan akademik, emosional, sosial, dan spiritual siswa.
                     </p>

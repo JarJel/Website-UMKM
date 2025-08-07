@@ -178,7 +178,7 @@
     <button id="scrollToTopBtn" title="Kembali ke Atas">↑</button>
 
     <!-- Header Section -->
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+    <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
             <!-- Logo Sekolah -->
             <a href="#" class="flex items-center space-x-2">
@@ -234,36 +234,36 @@
             <!-- Card Kelas 1 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
                 <img src="../image/kelas1.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+1';" alt="Icon Kelas 1" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 1</h3>
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 7</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Memperkenalkan dasar-dasar membaca, menulis, dan berhitung dengan metode yang menyenangkan dan interaktif.
                 </p>
                 <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
-                    Dashboard Level 1
+                    Dashboard Level 7
                 </a>
             </div>
 
             <!-- Card Kelas 2 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
                 <img src="../image/kelas2.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+2';" alt="Icon Kelas 2" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 2</h3>
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 8</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Pengembangan kemampuan dasar dengan fokus pada pemecahan masalah dan kreativitas dalam setiap pelajaran.
                 </p>
                 <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
-                    Dashboard Level 2
+                    Dashboard Level 8
                 </a>
             </div>
 
             <!-- Card Kelas 3 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
                 <img src="../image/kelas3.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';" alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 3</h3>
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 9</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
                 </p>
                 <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
-                    Dashboard Level 3
+                    Dashboard Level 9
                 </a>
             </div>
         </div>

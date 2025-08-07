@@ -9,9 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../icon/iconSd.png">
     <style>
-        /* Gaya CSS Anda yang sudah ada */
-        /* ... */
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
@@ -92,15 +89,15 @@
             scroll-padding-top: 100px;
         }
 
-        .card-bg {
-        /* Mengatur posisi relatif agar pseudo-element bisa diposisikan di dalamnya */
-        position: relative;
-        overflow: hidden; /* Penting untuk menjaga pseudo-element di dalam batas */
-        z-index: 1; /* Memberi konten z-index lebih tinggi dari pseudo-element */
-        height: auto;
-    }
+        .card-bg1 {
+            /* Mengatur posisi relatif agar pseudo-element bisa diposisikan di dalamnya */
+            position: relative;
+            overflow: hidden; /* Penting untuk menjaga pseudo-element di dalam batas */
+            z-index: 1; /* Memberi konten z-index lebih tinggi dari pseudo-element */
+            height: auto;
+        }
 
-    .card-bg::before {
+    .card-bg1::before {
         content: '';
         position: absolute;
         top: 0;
@@ -112,7 +109,55 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.4;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    .card-bg2 {
+            /* Mengatur posisi relatif agar pseudo-element bisa diposisikan di dalamnya */
+            position: relative;
+            overflow: hidden; /* Penting untuk menjaga pseudo-element di dalam batas */
+            z-index: 1; /* Memberi konten z-index lebih tinggi dari pseudo-element */
+            height: auto;
+        }
+
+    .card-bg2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* Gambar latar belakang diletakkan di pseudo-element */
+        background-image: url('../cardBackground/bgCard2.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    .card-bg3 {
+            /* Mengatur posisi relatif agar pseudo-element bisa diposisikan di dalamnya */
+            position: relative;
+            overflow: hidden; /* Penting untuk menjaga pseudo-element di dalam batas */
+            z-index: 1; /* Memberi konten z-index lebih tinggi dari pseudo-element */
+            height: auto;
+        }
+
+    .card-bg3::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* Gambar latar belakang diletakkan di pseudo-element */
+        background-image: url('../cardBackground/bgCard3.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
         z-index: -1;
     }
 
@@ -150,7 +195,7 @@
 
     <button id="scrollToTopBtn" title="Kembali ke Atas">↑</button>
 
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+    <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
                 <img src="../image/logoSd1.png" alt="Logo Sekolah" class="h-20 w-auto">
@@ -184,18 +229,19 @@
             <a href="#program"
                 class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Program</a>
             <a href="#galeri-video"
-                class="text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
         </div>
     </header>
 
     <section id="beranda"
-        class="hero-background py-20 md:py-32 text-center mb-12 min-h-[500px] md:min-h-[630px] flex flex-col justify-center">
-        <div class="hero-content text-white text-left px-6">
+    class="hero-background py-20 md:py-32 text-center mb-12 min-h-[500px] md:min-h-[630px] flex flex-col justify-center">
+    <div class="container ml-auto px-6"> 
+        <div class="hero-content text-white text-left">
             <h1 class="text-xl md:text-4xl font-extrabold leading-tight sm:mb-3 drop-shadow-lg">
-                Dashboard
+                SELAMAT DATANG DI
             </h1>
-            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] sm:mb-3  max-w-xs sm:max-w-sm md:max-w-2xl break-words drop-shadow-md leading-snug">
-                SD ISLAM CENDEKIA MUDA
+            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] sm:mb-3 max-w-xs sm:max-w-sm md:max-w-2xl break-words drop-shadow-md leading-snug">
+                PORTAL DASHBOARD CENDEKIA MUDA UNIT SD
             </p>
             <a href="#kelas"
                 class="inline-block bg-white hover:bg-[#d62037] text-[#d62037] hover:text-white font-bold 
@@ -204,18 +250,18 @@
                 transition duration-900 transform hover:scale-105 shadow-lg">
                 Mulai Sekarang
             </a>
-
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="kelas"
         class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#d62037] rounded-lg shadow-xl text-center">
         <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg text-white mb-10">Akses <span
-                class="text-[#313556] drop-shadow-lg">Dashboard</span> </h2>
+                class="text-white drop-shadow-lg">Dashboard</span> </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div
                 class="bg-white/90 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center p-6 sm:p-8">
-                <div class="card-bg w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
+                <div class="card-bg1 w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
                     <h2 class="text-xl font-bold text-[#d62037] mb-1">DASHBOARD</h2>
                     <h3 class="text-base sm:text-xl font-semibold text-[#313556] mb-2">SD ISLAM CENDEKIA MUDA BANDUNG
                     </h3>
@@ -232,7 +278,7 @@
 
             <div
                 class="bg-white/90 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center p-6 sm:p-8">
-                <div class="card-bg w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
+                <div class="card-bg2 w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
                     <h2 class="text-xl font-bold text-[#d62037] mb-1">DASHBOARD</h2>
                     <h3 class="text-base sm:text-xl font-semibold text-[#313556] mb-2">SD ISLAM CENDEKIA MUDA MAKASAR
                     </h3>
@@ -249,7 +295,7 @@
 
             <div
                 class="bg-white/90 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center p-6 sm:p-8">
-                <div class="card-bg w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
+                <div class="card-bg3 w-full rounded-lg flex-grow p-4 sm:p-6 mb-6 flex flex-col items-center justify-center text-center">
                     <h2 class="text-xl font-bold text-[#d62037] mb-1">DASHBOARD</h2>
                     <h3 class="text-base sm:text-xl font-semibold text-[#313556] mb-2">SD ISLAM CENDEKIA MUDA Program Bilingual
                     </h3>
@@ -258,8 +304,8 @@
                         mereka tentang budaya yang terkait dengan bahasa tersebut.
                     </p>
                 </div>
-                <a href="SD-Billingual"
-                    class="dashboard-link target="_blank" inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full md:w-auto text-sm md:text-base">
+                <a href="SD-Billingual.php"
+                    class="dashboard-link inline-block bg-[#313556] text-white font-semibold py-2 px-6 rounded-md transition duration-300 w-full md:w-auto text-sm md:text-base">
                     SD Islam Cendekia Muda Program Bilingual
                 </a>
             </div>
@@ -326,11 +372,14 @@
 
     <section id="galeri-video" class="bg-gray-50 py-16 mb-12 rounded-lg shadow-xl">
         <div class="container mx-auto px-6 md:px-12 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-[#313556] mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#313556] mb-4">
                 Galeri <span class="text-[#d62037]">Video Kegiatan SD</span>
             </h2>
-            <p class="text-gray-600 mb-8">
+            <p class="text-gray-600 mb-4">
                 Beberapa dokumentasi kegiatan terbaru kami
+            </p>
+            <p class="text-[#d62037] md:text-2xl mb-4">
+                Bandung
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -353,6 +402,28 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                     </iframe>
+                </div>
+            </div>
+
+            <p class="text-[#d62037] md:text-2xl mb-4 mt-4">
+                Makassar
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="relative w-full h-full rounded-lg overflow-hidden shadow-md">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/w69AZbBbCV8?si=FQBrd-XVtp61kb_L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+
+                
+                <!-- Video 2 -->
+                <div class="relative w-full h-full rounded-lg overflow-hidden shadow-md">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/WpcbvNTX-A0?si=Vej4Q9YsGoiQFemp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="relative w-full h-full rounded-lg overflow-hidden shadow-md">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/zQZXJj2FWyk?si=ivVK6tUhRdlH1LEy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

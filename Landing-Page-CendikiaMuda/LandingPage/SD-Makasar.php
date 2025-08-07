@@ -27,7 +27,7 @@
             color: #334155; /* General text color */
         }
         .hero-background {
-            background-image: url('../image/backgroundMksr2.png'); /* Ganti dengan jalur gambar latar belakang Anda */
+            background-image: url('../image/21.png'); /* Ganti dengan jalur gambar latar belakang Anda */
             background-size: cover;
             background-position: center;
             position: relative;
@@ -178,47 +178,57 @@
     <button id="scrollToTopBtn" title="Kembali ke Atas">↑</button>
 
     <!-- Header Section -->
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+    <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
-            <!-- Logo Sekolah -->
             <a href="#" class="flex items-center space-x-2">
-                <img src="../image/logoMksr1.png" alt="Logo Sekolah" class="h-20 w-30">
+                <img src="../image/logoSd1.png" alt="Logo Sekolah" class="h-20 w-30">
             </a>
 
-            <!-- Navigasi (Hamburger Menu for Mobile) -->
-            <div class="flex items-center space-x-4">
-                <a href="#beranda" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Beranda</a>
-                <a href="#kelas" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Kelas Kami</a>
-                <a href="#program" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Program</a>
-                <a href="#galeri-video" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>
-                <p class="text-white px-3 py-1 rounded-lg bg-[#0987c6]">Makassar</p>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#beranda"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Beranda</a>
+                <a href="#kelas"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Kelas Kami</a>
+                <a href="#program"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Program</a>
+                <a href="#galeri-video"
+                    class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300">Galeri</a>
             </div>
 
+            <div class="flex items-center space-x-4">
+                <p class="text-white px-3 py-1 rounded-lg bg-[#0987c6]">Makassar</p>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </nav>
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 px-4 pb-4 bg-white rounded-lg shadow-lg">
-            <a href="#beranda" class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Beranda</a>
-            <a href="#kelas" class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Kelas Kami</a>
-            <a href="#program" class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Program</a>
-            <a href="#galeri-video" class="text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
+            <a href="#beranda"
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Beranda</a>
+            <a href="#kelas"
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Kelas
+                Kami</a>
+            <a href="#program"
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Program</a>
+            <a href="#galeri-video"
+                class="block text-gray-700 hover:text-indigo-600 font-medium py-2 transition duration-300">Galeri</a>
         </div>
     </header>
 
     <!-- Hero Section with Background Image -->
     <section id="beranda" class="hero-background py-20 md:py-32 text-center mb-12 h-[500px] md:h-[630px] flex flex-col justify-center">
         <div class="hero-content text-white text-left max-w-4xl px-6">
-            <h1 class="text-lg md:text-4xl font-extrabold leading-tight mb-6 drop-shadow-lg">
+            <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-2 drop-shadow-lg">
                 Dashboard
             </h1>
-            <p class="text-3xl md:text-6xl font-extrabold text-[#0987c6] mb-10 max-w-2xl drop-shadow-md">
+            <p class="text-3xl md:text-6xl font-extrabold text-[#0987c6] mb-8 max-w-2xl drop-shadow-md">
                 SD ISLAM CENDEKIA MUDA MAKASSAR
             </p>
             <a href="#kelas" class="bg-white hover:bg-[#6bdd38] text-[#0987c6] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
@@ -229,40 +239,40 @@
 
     <!-- Kelas Section (Previously About Section) -->
     <section id="kelas" class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#0987c6] rounded-lg shadow-xl text-center">
-        <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg text-white mb-10">Pilihan <span class="text-[#313556] drop-shadow-lg">Kelas Kami</span> </h2>
+        <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg text-white mb-10">Pilihan <span class="text-white drop-shadow-lg">Kelas Kami</span> </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Card Kelas 1 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/kelas1.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+1';" alt="Icon Kelas 1" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 1</h3>
+                <img src="../image/20.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+1';" alt="Icon Kelas 1" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 1</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Memperkenalkan dasar-dasar membaca, menulis, dan berhitung dengan metode yang menyenangkan dan interaktif.
                 </p>
-                <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+                <a href="https://sites.google.com/cendekiamuda.sch.id/2425-site-level-1-makassar/" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
                     Dashboard Level 1
                 </a>
             </div>
 
             <!-- Card Kelas 2 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/kelas2.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+2';" alt="Icon Kelas 2" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 2</h3>
+                <img src="../image/17.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+2';" alt="Icon Kelas 2" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 2</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Pengembangan kemampuan dasar dengan fokus pada pemecahan masalah dan kreativitas dalam setiap pelajaran.
                 </p>
-                <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+                <a href="https://sites.google.com/cendekiamuda.sch.id/2425sitelevel2makassar/" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
                     Dashboard Level 2
                 </a>
             </div>
 
             <!-- Card Kelas 3 -->
             <div class="bg-indigo-50 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col items-center">
-                <img src="../image/kelas3.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';" alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Kelas 3</h3>
+                <img src="../image/18.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a78bfa/ffffff?text=Kelas+3';" alt="Icon Kelas 3" class="w-36 h-36 rounded-full mb-6 object-cover border-4 border-indigo-300">
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Level 3</h3>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Meningkatkan pemahaman konsep yang lebih kompleks dan pengenalan mata pelajaran baru.
                 </p>
-                <a href="https://level1sd.cendekiamuda.sch.id/home" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+                <a href="https://sites.google.com/cendekiamuda.sch.id/2425-site-level-3/" class="inline-block bg-[#313556] drop-shadow-lg text-white font-semibold py-2 px-6 rounded-md transition duration-300">
                     Dashboard Level 3
                 </a>
             </div>
@@ -328,7 +338,7 @@
 
     <section id="galeri-video" class="bg-gray-50 py-16 mb-12 rounded-lg shadow-xl">
         <div class="container mx-auto px-6 md:px-12 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-[#313556] mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#313556] mb-4">
                 Galeri <span class="text-[#0987c6]">Video Kegiatan SD</span>
             </h2>
             <p class="text-gray-600 mb-8">

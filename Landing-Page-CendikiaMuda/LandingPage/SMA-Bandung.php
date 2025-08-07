@@ -178,7 +178,7 @@
     <button id="scrollToTopBtn" title="Kembali ke Atas">↑</button>
 
     <!-- Header Section -->
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+    <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
             <!-- Logo Sekolah -->
             <a href="#" class="flex items-center space-x-2">

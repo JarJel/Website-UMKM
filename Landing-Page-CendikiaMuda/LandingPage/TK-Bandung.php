@@ -437,6 +437,19 @@
             updateLoginStateUI(); // Panggil saat halaman pertama kali dimuat
         });
 
+
+        // Tambahkan kode ini untuk menampilkan teks hero
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            // Menambahkan kelas `show-text` setelah jeda singkat
+            // agar transisi terlihat lebih halus
+            setTimeout(() => {
+                heroContent.classList.add('show-text');
+            }, 100);
+        }
+    });
+
         // Tambahkan event listener untuk mencegah navigasi jika link kelas tidak aktif
         document.addEventListener('click', function(event) {
             const target = event.target;
