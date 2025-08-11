@@ -247,7 +247,7 @@
 
     <header class="bg-white shadow-md px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-2">
+            <a href="#" class="flex items-center space-x-2  ">
                 <img src="../image/logoSd1.png" alt="Logo Sekolah" class="h-20 w-30">
             </a>
 

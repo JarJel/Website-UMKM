@@ -27,7 +27,7 @@
             color: #334155; /* General text color */
         }
         .hero-background {
-            background-image: url('../image/backgroundMksr2.png'); /* Ganti dengan jalur gambar latar belakang Anda */
+            background-image: url('../image/try4.png'); /* Ganti dengan jalur gambar latar belakang Anda */
             background-size: cover;
             background-position: center;
             position: relative;
@@ -196,7 +196,7 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <p class="text-white px-3 py-1 rounded-lg bg-[#0987c6]">Billingual</p>
+                <p class="text-white px-3 py-1 rounded-lg bg-[#d62037]">Billingual</p>
 
                 <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -228,17 +228,17 @@
             <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-6 drop-shadow-lg">
                 Dashboard
             </h1>
-            <p class="text-3xl md:text-6xl font-extrabold text-[#0987c6] mb-10 max-w-2xl drop-shadow-md">
+            <p class="text-3xl md:text-6xl font-extrabold text-[#d62037] mb-10 max-w-2xl drop-shadow-md">
                 SD ISLAM CENDEKIA MUDA BILLINGUAL
             </p>
-            <a href="#kelas" class="bg-white hover:bg-[#0987c6] text-[#0987c6] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
+            <a href="#kelas" class="bg-white hover:bg-[#d62037] text-[#d62037] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
                 Mulai Sekarang
             </a>
         </div>
     </section>
 
     <!-- Kelas Section (Previously About Section) -->
-    <section id="kelas" class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#0987c6] rounded-lg shadow-xl text-center">
+    <section id="kelas" class="container mx-auto px-6 md:px-12 py-16 mb-12 bg-[#313556] rounded-lg shadow-xl text-center">
         <h2 class="text-3xl md:text-4xl font-bold drop-shadow-lg text-white mb-10">Pilihan <span class="text-white drop-shadow-lg">Kelas Kami</span> </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Card Kelas 1 -->
@@ -327,7 +327,7 @@
     <section id="galeri-video" class="bg-gray-50 py-16 mb-12 rounded-lg shadow-xl">
         <div class="container mx-auto px-6 md:px-12 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-[#313556] mb-10">
-                Galeri <span class="text-[#0987c6]">Video Kegiatan SD</span>
+                Galeri <span class="text-[#d62037]">Video Kegiatan SD</span>
             </h2>
             <p class="text-gray-600 mb-8">
                 Beberapa dokumentasi kegiatan terbaru kami

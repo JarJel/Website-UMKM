@@ -231,7 +231,7 @@
             <p class="text-3xl md:text-6xl font-extrabold text-[#0987c6] mb-8 max-w-2xl drop-shadow-md">
                 SD ISLAM CENDEKIA MUDA MAKASSAR
             </p>
-            <a href="#kelas" class="bg-white hover:bg-[#6bdd38] text-[#0987c6] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
+            <a href="#kelas" class="bg-white hover:bg-[#0987c6] text-[#0987c6] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-900 transform hover:scale-105 shadow-lg">
                 Mulai Sekarang
             </a>
         </div>
