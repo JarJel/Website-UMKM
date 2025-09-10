@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
 
 // LOGIN SECTION
 Route::get('/login/user', function () {
@@ -23,4 +28,5 @@ Route::get('/regist/user', function () {
 // HOMEPAGE SECTION
 Route::get('/homePage/home', function () {
     return view('homePage.homePage');
-});
+})->name('home');
+

@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./output.css" rel="stylesheet" />
     <title>Sign Up</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +24,7 @@
                 <div class="relative inline-block group">
                     <button
                     class="flex items-center justify-center space-x-2 text-white bg-[#42551E] px-4 py-2 rounded-lg hover:bg-[#5b7028] transition">
-                    <span>Sign up</span>
+                    <span>Masuk</span>
                     </button>
                 </div>
             </div>
@@ -39,27 +38,30 @@
         <h1 class="pb-6 font-bold text-gray-100 text-3xl text-center cursor-default">
           Sign In
         </h1>
-        <form action="#" method="post" class="space-y-4">
+        <form action="{{ route('login') }}" method="post" class="space-y-4">
+        @csrf  
           <div>
-            <label for="email" class="block mb-1 text-gray-200 text-base">Email</label>
-            <input
-              id="email"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              type="email"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div>
-            <label for="password" class="block mb-1 text-gray-200 text-base">Password</label>
-            <input
-              id="password"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              type="password"
-              placeholder="Password"
-              required
-            />
-          </div>
+              <label for="email" class="block mb-1 text-gray-200 text-base">Email</label>
+              <input
+                id="email"
+                name = "EMAIL_USER"
+                class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div>
+              <label for="password" class="block mb-1 text-gray-200 text-base">Password</label>
+              <input
+                id="password"
+                name = "PASSWORD_USER"
+                class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+                type="password"
+                placeholder="Password"
+                required
+              />
+            </div>
           <div class="flex justify-center items-center space-x-2">
             <a href="#" class="text-blue-300 hover:underline">forgot password?</a>
           </div>
