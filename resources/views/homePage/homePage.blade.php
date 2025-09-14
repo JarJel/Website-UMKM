@@ -35,7 +35,7 @@
             </div>
 
             <!-- Mega Dropdown -->
-            <div class="fixed left-0 right-0 top-0 mt-2 hidden group-hover:block bg-white shadow-lg w-screen z-50 border-t">
+            <div class="fixed left-0 right-0 mt-2 hidden group-hover:block bg-white shadow-lg w-screen z-50 border-t">
               <div class="bg-white py-8 antialiased md:py-16">
                 <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
                   <div class="mb-4 flex items-center justify-between gap-4 md:mb-8">
@@ -323,10 +323,9 @@
           </div>
 
           <div class="hidden md:block">
-            <button
-              class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
+            <a href="{{ url('/login') }}" class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
               Sign in
-            </button>
+            </a>
           </div>
         </div>
       </div>

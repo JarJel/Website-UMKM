@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
+    <title>Masuk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,10 +22,9 @@
                     <img src="../../assets/imageInternal/logoBatara.png" class="w-full h-full object-contain">
                 </div>
                 <div class="relative inline-block group">
-                    <button
-                    class="flex items-center justify-center space-x-2 text-white bg-[#42551E] px-4 py-2 rounded-lg hover:bg-[#5b7028] transition">
-                    <span>Masuk</span>
-                    </button>
+                    <a href="" class="flex items-center justify-center space-x-2 text-white bg-[#42551E] px-4 py-2 rounded-lg hover:bg-[#5b7028] transition">
+                    <span>Daftar</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -44,7 +43,7 @@
               <label for="email" class="block mb-1 text-gray-200 text-base">Email</label>
               <input
                 id="email"
-                name = "EMAIL_USER"
+                name = "email"
                 class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                 type="email"
                 placeholder="Email"
@@ -55,7 +54,7 @@
               <label for="password" class="block mb-1 text-gray-200 text-base">Password</label>
               <input
                 id="password"
-                name = "PASSWORD_USER"
+                name = "kata_sandi"
                 class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                 type="password"
                 placeholder="Password"
@@ -93,7 +92,7 @@
             Don't have an account?
             <a
               class="text-blue-300 hover:underline"
-              href="#"
+              href="{{ url('/regist/user') }}"
             >Sign Up</a>
           </h3>
         </div>

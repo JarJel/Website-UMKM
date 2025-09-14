@@ -13,11 +13,11 @@ class LoginController extends Controller
 
     public function login(Request $request) {
         $request->validate([
-            'EMAIL_USER' => 'required|email',
-            'PASSWORD_USER' => 'required'
+            'email' => 'required|email',
+            'kata_sandi' => 'required'
         ]);
 
-        if (Auth::attempt(['EMAIL_USER' => $request->EMAIL_USER, 'password' => $request->PASSWORD_USER])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->email])) {
             return redirect()->intended('/homePage/home');
         } else {
             // Tambahin debug sementara
@@ -26,7 +26,7 @@ class LoginController extends Controller
 
 
         return back()->withErrors([
-            'EMAIL_USER' => 'Email atau password salah',
-        ])-> onlyInput('EMAIL_USER');
+            'email' => 'Email atau password salah',
+        ])-> onlyInput('email');
     }
 }
