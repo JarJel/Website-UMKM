@@ -35,7 +35,7 @@
     <div class="flex justify-center items-center min-h-screen py-16">
       <div class="bg-[#42551E] rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <h1 class="pb-6 font-bold text-gray-100 text-3xl text-center cursor-default">
-          Sign In
+          Masuk
         </h1>
         <form action="{{ route('login') }}" method="post" class="space-y-4">
         @csrf  
@@ -61,9 +61,15 @@
                 required
               />
             </div>
-          <div class="flex justify-center items-center space-x-2">
+          <div class="flex justify-between w-full items-center space-x-2">
+            <label class="flex items-center text-white">
+                <input type="checkbox" name="remember" class="mr-2">
+                <span>Ingat saya</span>
+            </label>
             <a href="#" class="text-blue-300 hover:underline">forgot password?</a>
           </div>
+
+          
 
           <button
             class="bg-white shadow-lg mt-4 p-2 text-[#42551E] rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
