@@ -41,82 +41,37 @@
                         Daftar Akun Seller
                     </h1>
 
-                    <form action="{{ route('registerSeller') }}" method="POST" enctype="multipart/form-data" class="mx-auto max-w-xs py-4 w-full">
-                        @csrf
+                   <form action="{{ route('seller.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
 
-                        <div class="mb-4 md:flex md:justify-between">
-                            <div class="mb-4 md:mr-2 md:mb-0">
-                                <label class="block mb-2 text-sm font-bold text-white">Nama Pengguna</label>
-                                <input name="nama_pengguna" type="text" placeholder="Username"
-                                    class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" required />
-                            </div>
-                            <div class="md:ml-2">
-                                <label class="block mb-2 text-sm font-bold text-white">Nama Lengkap</label>
-                                <input name="nama_lengkap" type="text" placeholder="Nama Lengkap"
-                                    class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" />
-                            </div>
-                        </div>
+    <!-- tampilkan error -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $err)
+                <li>{{ $err }}</li>
+              @endforeach
+            </ul>
+        </div>
+    @endif
 
-                        <div class="mb-4 md:flex md:justify-between">
-                            <div class="mb-4 md:mr-2 md:mb-0">
-                                <label class="block mb-2 text-sm font-bold text-white">Nomor Telepon</label>
-                                <input name="nomor_telepon" type="text" placeholder="Nomor Telepon"
-                                    class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" />
-                            </div>
-                            <div class="md:ml-2">
-                                <label class="block mb-2 text-sm font-bold text-white">No Rekening</label>
-                                <input name="no_rekening" type="text" placeholder="Nomor Rekening"
-                                    class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" required />
-                            </div>
-                        </div>
+    <input type="text" name="nama_pengguna" value="{{ old('nama_pengguna') }}" placeholder="Nama Pengguna" required>
+    <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Nama Lengkap">
+    <input type="text" name="nomor_telepon" value="{{ old('nomor_telepon') }}" placeholder="Nomor Telepon">
+    <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
 
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-white">Email</label>
-                            <input name="email" type="email" placeholder="Email"
-                                class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" required />
-                        </div>
+    <input type="password" name="kata_sandi" placeholder="Password" required>
+    <input type="password" name="kata_sandi_confirmation" placeholder="Konfirmasi Password" required>
 
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-white">Password</label>
-                            <input name="kata_sandi" type="password" placeholder="Password"
-                                class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" required />
-                        </div>
+    <label>Upload KTP (opsional)</label>
+    <input type="file" name="ktp">
 
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-white">Konfirmasi Password</label>
-                            <input name="kata_sandi_confirmation" type="password" placeholder="Konfirmasi Password"
-                                class="w-full px-3 py-2 text-sm border rounded shadow appearance-none focus:outline-none focus:shadow-outline" required />
-                        </div>
+    <label>Upload SKU (opsional)</label>
+    <input type="file" name="sku">
 
-                        <div class="flex flex-col md:flex-row md:space-x-4">
-                            <div class="flex-1 mb-4 md:mb-0">
-                                <label for="ktp" class="block mb-2 text-sm font-bold text-gray-100">Dokumen KTP</label>
-                                <input type="file" id="ktp" name="ktp" class="w-full text-sm text-gray-300" required>
-                            </div>
-                            <div class="flex-1">
-                                <label for="sku" class="block mb-2 text-sm font-bold text-gray-100">Dokumen SKU</label>
-                                <input type="file" id="sku" name="sku" class="w-full text-sm text-gray-300" required>
-                            </div>
-                        </div>
+    <button type="submit">Register</button>
+</form>
 
-                        <button type="submit"
-                            class="mt-6 tracking-wide font-semibold bg-indigo-500 text-white w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center">
-                            <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                                <circle cx="8.5" cy="7" r="4" />
-                                <path d="M20 8v6M23 11h-6" />
-                            </svg>
-                            <span class="ml-3">Sign Up</span>
-                        </button>
-
-                        <p class="mt-2 text-xs text-white text-center">
-                            Already have an account?
-                            <a href="{{ route('login') }}" class="text-blue-500 border-b border-blue-500 border-dotted">
-                                Sign in
-                            </a>
-                        </p>
-                    </form>
                 </div>
             </div>
 
