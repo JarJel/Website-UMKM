@@ -37,7 +37,7 @@
         <h1 class="pb-6 font-bold text-gray-100 text-3xl text-center cursor-default">
           Masuk
         </h1>
-        <form action="{{ route('login') }}" method="post" class="space-y-4">
+        <form action="{{ route('login.post') }}" method="post" class="space-y-4">
         @csrf  
           <div>
               <label for="email" class="block mb-1 text-gray-200 text-base">Email</label>
@@ -85,13 +85,13 @@
           </div>
 
           <!-- Login with Google -->
-          <button
-            type="button"
-            class="flex items-center justify-center gap-2 bg-white text-gray-700 font-medium shadow-md border border-gray-300 rounded-lg py-2 px-4 w-full hover:bg-gray-100 transition"
-          >
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo" class="w-5 h-5">
+          <a href="{{ route('google.login') }}"
+            class="flex items-center justify-center gap-2 bg-white text-gray-700 font-medium shadow-md border border-gray-300 rounded-lg py-2 px-4 w-full hover:bg-gray-100 transition">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" 
+                  alt="Google Logo" class="w-5 h-5">
             Login with Google
-          </button>
+          </a>
+
         </form>
         <div class="flex flex-col mt-4 items-center justify-center text-sm">
           <h3 class="text-gray-200">

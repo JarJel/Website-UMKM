@@ -35,11 +35,12 @@
     <div class="flex justify-center items-center min-h-screen py-16">
       <div class="bg-[#42551E] rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <h1 class="pb-6 font-bold text-gray-100 text-3xl text-center cursor-default">
-          Sign Up
+          Daftar
         </h1>
 
-        <form action="{{ url('register') }}" method="post" class="space-y-4">
+        <form action="{{ route('register.post') }}" method="post" class="space-y-4">
           @csrf
+
           <div>
             <label for="nama_pengguna" class="block mb-1 text-gray-200">Username</label>
             <input id="nama_pengguna" name="nama_pengguna" type="text"
@@ -72,19 +73,27 @@
               placeholder="Confirm Password" required>
           </div>
 
-          <div>
-            <label for="nomor_telepon" class="block mb-1 text-gray-200">Phone Number</label>
-            <input id="nomor_telepon" name="nomor_telepon" type="text"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
-                     focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              placeholder="Phone Number">
-          </div>
-          
           <button type="submit"
             class="bg-white shadow-lg mt-4 p-2 text-[#42551E] rounded-lg w-full hover:scale-105 transition duration-300 ease-in-out">
             Sign Up
           </button>
         </form>
+
+        <!-- Divider -->
+        <div class="flex items-center my-4">
+          <div class="flex-grow border-t border-gray-300"></div>
+          <span class="mx-2 text-gray-200 text-sm">or</span>
+          <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <!-- Login with Google -->
+        <div class="flex justify-center">
+          <a href="{{ url('/auth/google') }}"
+            class="flex items-center justify-center gap-2 bg-white text-gray-700 font-medium shadow-md border border-gray-300 rounded-lg py-2 px-4 w-full hover:bg-gray-100 transition">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo" class="w-5 h-5">
+            Sign Up with Google
+          </a>
+        </div>
 
         <div class="flex flex-col mt-4 items-center justify-center text-sm">
           <h3 class="text-gray-200">
@@ -96,3 +105,4 @@
     </div>
   </body>
 </html>
+  
