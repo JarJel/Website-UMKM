@@ -3,6 +3,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSellerRequest;
 use App\Models\User;
+use App\Models\Toko;
+use App\Models\VerifikasiToko;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class SellerController extends Controller
 {
@@ -13,37 +17,55 @@ class SellerController extends Controller
 
     public function store(StoreSellerRequest $request)
     {
-        // Upload file (jika ada) -> dapatkan path
-        $ktpPath = null;
-        if ($request->hasFile('ktp')) {
-            $ktpName = time() . '_ktp.' . $request->ktp->extension();
-            $request->ktp->move(public_path('uploads/ktp'), $ktpName);
-            $ktpPath = 'uploads/ktp/' . $ktpName;
+        DB::beginTransaction();
+
+        try {
+            $data = $request->validated();
+
+            // Upload file KTP dan SKU
+            $ktpPath = $request->hasFile('ktp') ? $request->file('ktp')->store('uploads/ktp', 'public') : null;
+            $skuPath = $request->hasFile('sku') ? $request->file('sku')->store('uploads/sku', 'public') : null;
+
+            // 1️⃣ Simpan ke tabel pengguna
+            $user = User::create([
+                'nama_lengkap' => $data['nama_lengkap'],
+                'nama_pengguna' => $data['nama_pengguna'],
+                'email' => $data['email'],
+                'kata_sandi' => bcrypt($data['kata_sandi']),
+                'id_role' => 2,
+                'ktp' => $ktpPath,
+                'sku' => $skuPath,
+                'no_rekening' => $data['nomor_rekening'] ?? null,
+                'id_desa' => $data['id_desa'] ?? null
+            ]);
+
+            // 2️⃣ Simpan ke tabel toko
+            $toko = Toko::create([
+                'id_pengguna' => $user->id_pengguna,
+                'nama_toko' => $data['nama_toko'],
+                'slug_toko' => Str::slug($data['nama_toko']),
+                'status_verifikasi' => 'pending',
+                'nomor_rekening' => $data['nomor_rekening'] ?? null,
+                'id_desa' => $data['id_desa'] ?? null
+            ]);
+
+            // 3️⃣ Simpan ke tabel verifikasi_toko
+            VerifikasiToko::create([
+                'id_toko' => $toko->id_toko,
+                'status_verifikasi' => 'pending',
+                'dokumen_ktp' => $ktpPath,
+                'dokumen_sku' => $skuPath,
+                'nomor_rekening' => $data['nomor_rekening'] ?? null
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('seller.dashboard')
+                ->with('success', 'Registrasi berhasil! Menunggu verifikasi toko.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('error', 'Registrasi gagal: ' . $e->getMessage());
         }
-
-        $skuPath = null;
-        if ($request->hasFile('sku')) {
-            $skuName = time() . '_sku.' . $request->sku->extension();
-            $request->sku->move(public_path('uploads/sku'), $skuName);
-            $skuPath = 'uploads/sku/' . $skuName;
-        }
-
-        // Ambil data yang sudah divalidasi
-        $data = $request->validated();
-
-        // Sesuaikan nama kolom sesuai model/database
-        $data['kata_sandi'] = bcrypt($data['kata_sandi']); // hash
-        $data['id_role'] = 2; // role seller (integer)
-        $data['ktp'] = $ktpPath;
-        $data['sku'] = $skuPath;
-
-        // Pastikan $fillable di model memang mengandung keys di $data
-        $user = User::create($data);
-
-        if ($user) {
-            return redirect()->route('home')->with('success', 'Registrasi berhasil!');
-        }
-
-        return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
     }
 }

@@ -9,12 +9,23 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $table = 'produk';
+    protected $primaryKey = 'id_produk';
+    
     protected $fillable = [
-        'sku',
-        'name',
-        'price',
-        'stock',
-        'image',
+        'id_toko',
+        'gambar_produk',
+        'nama_produk',
+        'deskripsi_produk',
+        'harga_dasar',
+        'stok',
+        'rating_produk',
+        'id_kategori',
+        'tanggal_ditambahkan',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'id_produk';
+    }
 }

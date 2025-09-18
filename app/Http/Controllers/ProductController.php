@@ -2,76 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\kategori;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('seller.produk', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('products.create');
+        $kategori = Kategori::all(); // ambil semua kategori
+        return view('seller.produk_create',compact('kategori'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        $imageName = time().'.'.$request->image->extension();
-        $uploadedImage = $request->image->move(public_path('images'), $imageName);
-        $imagePath = 'images/' . $imageName;
+        $validated = $request->validate([
+            'nama_produk'      => 'required|string|max:255',
+            'deskripsi_produk' => 'nullable|string',
+            'harga_dasar'      => 'required|numeric',
+            'stok'             => 'required|integer|min:0', 
+            'id_kategori'      => 'required|integer',
+            'gambar_produk.*'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-        $params = $request->validated();
-        
-        if ($product = Product::create($params)) {
-            $product->image = $imagePath;
-            $product->save();
-
-            return redirect(route('products.index'))->with('success', 'Added!');
+        // Simpan gambar maksimal 5
+        if ($request->hasFile('gambar_produk')) {
+            $file = $request->file('gambar_produk');
+            $path = $file->store('produk', 'public');
+            $validated['gambar_produk'] = $path;
         }
+
+        $validated['tanggal_ditambahkan'] = now();
+        $validated['id_pengguna'] = Auth::id();
+
+        Product::create($validated);
+
+        return redirect()->route('seller.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Product $product)
     {
-        //
+        $kategori = Kategori::all();
+        return view('seller.produk_edit', compact('product', 'kategori'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'nama_produk'      => 'required|string|max:255',
+            'deskripsi_produk' => 'nullable|string',
+            'harga_dasar'      => 'required|numeric',
+            'stok'             => 'required|integer|min:0',
+            'id_kategori'      => 'nullable|integer',
+            'gambar_produk'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if (empty($validated['id_kategori'])) {
+            unset($validated['id_kategori']);
+        }
+
+        if ($request->hasFile('gambar_produk')) {
+            // opsional: hapus file lama, jika kamu mau
+            $validated['gambar_produk'] = $request->file('gambar_produk')->store('produk', 'public');
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('seller.products.index')
+            ->with('success', 'Produk berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

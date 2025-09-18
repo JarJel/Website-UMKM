@@ -1,178 +1,103 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./output.css" rel="stylesheet" />
-    <title>Daftar Seller</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="font-poppins bg-white min-h-screen">
-    <!-- Navbar -->
-    <nav
-      class="sticky top-0 z-50 bg-white border-b-2 border-black shadow-lg rounded-lg"
-    >
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex justify-between items-center h-16">
-          <div class="w-[175px] h-[100px]">
-            <img
-              src="../../assets/imageInternal/logoBatara.png"
-              class="w-full h-full object-contain"
-            />
-          </div>
-          <div class="relative inline-block group">
-            <a
-              href="{{ url('/login/user') }}"
-              class="flex items-center justify-center space-x-2 text-white bg-[#42551E] px-4 py-2 rounded-lg hover:bg-[#5b7028] transition"
-            >
-              <span>Masuk</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Registrasi Seller</title>
+</head>
+<body>
+    <h1>Registrasi Seller</h1>
 
-    <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-      <div
-        class="max-w-screen-xl m-0 sm:m-10 bg-[#42551E] shadow sm:rounded-lg flex justify-center flex-1"
-      >
-        <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-          <div class="flex flex-col items-center">
-            <h1 class="text-2xl xl:text-3xl text-white font-extrabold mb-6">
-              Daftar Akun Seller
-            </h1>
+    @if(session('success'))
+        <p style="color:green">{{ session('success') }}</p>
+    @endif
 
-            <form
-              action="{{ route('seller.store') }}"
-              method="POST"
-              enctype="multipart/form-data"
-              class="w-full"
-            >
-              @csrf
+    @if(session('error'))
+        <p style="color:red">{{ session('error') }}</p>
+    @endif
 
-              <!-- tampilkan error -->
-              @if ($errors->any())
-              <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                <ul class="list-disc pl-5">
-                  @foreach ($errors->all() as $err)
-                  <li>{{ $err }}</li>
-                  @endforeach
-                </ul>
-              </div>
-              @endif
+    <form action="{{ route('seller.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-              <!-- Grid form 2 kolom -->
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-white mb-1">Nama Pengguna</label>
-                  <input
-                    type="text"
-                    name="nama_pengguna"
-                    value="{{ old('nama_pengguna') }}"
-                    placeholder="Nama Pengguna"
-                    required
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Nama Lengkap</label>
-                  <input
-                    type="text"
-                    name="nama_lengkap"
-                    value="{{ old('nama_lengkap') }}"
-                    placeholder="Nama Lengkap"
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Nomor Telepon</label>
-                  <input
-                    type="text"
-                    name="nomor_telepon"
-                    value="{{ old('nomor_telepon') }}"
-                    placeholder="Nomor Telepon"
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    placeholder="Email"
-                    required
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Password</label>
-                  <input
-                    type="password"
-                    name="kata_sandi"
-                    placeholder="Password"
-                    required
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Konfirmasi Password</label>
-                  <input
-                    type="password"
-                    name="kata_sandi_confirmation"
-                    placeholder="Konfirmasi Password"
-                    required
-                    class="w-full p-2 rounded border"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Upload KTP (opsional)</label>
-                  <input
-                    type="file"
-                    name="ktp"
-                    class="w-full text-white"
-                  />
-                </div>
-
-                <div>
-                  <label class="block text-white mb-1">Upload SKU (opsional)</label>
-                  <input
-                    type="file"
-                    name="sku"
-                    class="w-full text-white"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                class="mt-6 w-full bg-white text-[#42551E] font-bold py-2 px-4 rounded-lg hover:bg-gray-200 transition"
-              >
-                Register
-              </button>
-            </form>
-          </div>
+        <div>
+            <label for="nama_lengkap">Nama Lengkap</label><br>
+            <input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ old('nama_lengkap') }}">
+            @error('nama_lengkap')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
         </div>
 
-        <div class="flex-1 bg-white text-center hidden lg:flex">
-          <div
-            class="m-12 xl:m-16 w-full bg-contain rounded-lg bg-center bg-no-repeat"
-            style="background-image: url('../../../assets/backRegist/bannerRegist.png');"
-          ></div>
+        <div>
+            <label for="nama_pengguna">Nama Pengguna</label><br>
+            <input type="text" name="nama_pengguna" id="nama_pengguna" value="{{ old('nama_pengguna') }}">
+            @error('nama_pengguna')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
         </div>
-      </div>
-    </div>
-  </body>
+
+        <div>
+            <label for="email">Email</label><br>
+            <input type="email" name="email" id="email" value="{{ old('email') }}">
+            @error('email')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="kata_sandi">Kata Sandi</label><br>
+            <input type="password" name="kata_sandi" id="kata_sandi">
+            @error('kata_sandi')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="kata_sandi_confirmation">Konfirmasi Kata Sandi</label><br>
+            <input type="password" name="kata_sandi_confirmation" id="kata_sandi_confirmation">
+        </div>
+
+        <div>
+            <label for="nomor_telepon">Nomor Telepon</label><br>
+            <input type="text" name="nomor_telepon" id="nomor_telepon" value="{{ old('nomor_telepon') }}">
+            @error('nomor_telepon')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="nama_toko">Nama Toko</label><br>
+            <input type="text" name="nama_toko" id="nama_toko" value="{{ old('nama_toko') }}">
+            @error('nama_toko')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="nomor_rekening">Nomor Rekening</label><br>
+            <input type="text" name="nomor_rekening" id="nomor_rekening" value="{{ old('nomor_rekening') }}">
+            @error('nomor_rekening')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="ktp">Upload KTP</label><br>
+            <input type="file" name="ktp" id="ktp">
+            @error('ktp')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="sku">Upload SKU</label><br>
+            <input type="file" name="sku" id="sku">
+            @error('sku')
+                <p style="color:red">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <button type="submit">Daftar</button>
+        </div>
+    </form>
+</body>
 </html>

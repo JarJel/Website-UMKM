@@ -7,19 +7,20 @@
     <title>Batara</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.2/flowbite.min.js"></script>
-
   </head>
   <body class="bg-white">
     <nav class="sticky top-0 z-50 bg-white border-b shadow-xl">
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center h-20 justify-between space-x-4">
           
+          <!-- Logo -->
           <div class="w-[175px] h-[80px]">
             <img src="../../../assets/imageInternal/logoBatara.png"
                  class="w-full h-full object-contain"
                  alt="Logo Batara">
           </div>
 
+          <!-- Search bar -->
           <div class="flex-grow max-w-2xl">
             <input
               type="text"
@@ -28,231 +29,171 @@
             />
           </div>
           
-          <div class="flex items-center space-x-2 text-gray-700">
+          <!-- Bagian kanan navbar -->
+          <div class="flex items-center space-x-4 text-gray-700">
+            
+            {{-- ✅ Jika user sudah login --}}
+          @auth
+            <!-- Icon Notifikasi -->
             <div class="relative group">
-                <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 text-gray-700">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 0 0 
-                            5.454-1.31A8.967 8.967 0 0 1 
-                            18 9.75V9A6 6 0 0 0 
-                            6 9v.75a8.967 8.967 0 0 1-2.312 
-                            6.022c1.733.64 3.56 1.085 
-                            5.455 1.31m5.714 0a24.255 
-                            24.255 0 0 1-5.714 0m5.714 
-                            0a3 3 0 1 1-5.714 0" />
-                    </svg>
-                </button>
-
-                <div
-                    class="absolute z-50 left-1/2 -translate-x-1/2 border-2 border-black w-56 bg-white border border-gray-200 rounded-xl shadow-lg
-                        opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto
-                        transition">
-                    <ul class="py-2 text-sm text-gray-700">
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded-t-xl">Dashboard</a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded-b-xl">Sign out</a></li>
-                    </ul>
-                </div>
+              <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 text-gray-700">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 0 0 
+                          5.454-1.31A8.967 8.967 0 0 1 
+                          18 9.75V9A6 6 0 0 0 
+                          6 9v.75a8.967 8.967 0 0 1-2.312 
+                          6.022c1.733.64 3.56 1.085 
+                          5.455 1.31m5.714 0a24.255 
+                          24.255 0 0 1-5.714 0m5.714 
+                          0a3 3 0 1 1-5.714 0" />
+                </svg>
+              </button>
             </div>
 
+            <!-- Icon Keranjang -->
             <div class="relative group">
-                <button type="button"
-                        class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor"
-                        class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 10.5V6a3.75 3.75 0 1
-                            0-7.5 0v4.5m11.356-1.993
-                            1.263 12c.07.665-.45 1.243-1.119 
-                            1.243H4.25a1.125 1.125
-                            0 0 1-1.12-1.243l1.264-12A1.125 
-                            1.125 0 0 1 5.513 
-                            7.5h12.974c.576 0 1.059.435
-                            1.119 1.007ZM8.625 10.5a.375.375 
-                            0 1 1-.75 0 .375.375 0 
-                            0 1 .75 0Zm7.5 0a.375.375 
-                            0 1 1-.75 0 .375.375 0 
-                            0 1 .75 0Z" />
-                    </svg>
-                </button>
+              <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 1
+                          0-7.5 0v4.5m11.356-1.993
+                          1.263 12c.07.665-.45 1.243-1.119 
+                          1.243H4.25a1.125 1.125
+                          0 0 1-1.12-1.243l1.264-12A1.125 
+                          1.125 0 0 1 5.513 
+                          7.5h12.974c.576 0 1.059.435
+                          1.119 1.007ZM8.625 10.5a.375.375 
+                          0 1 1-.75 0 .375.375 0 
+                          0 1 .75 0Zm7.5 0a.375.375 
+                          0 1 1-.75 0 .375.375 0 
+                          0 1 .75 0Z" />
+                </svg>
+              </button>
+            </div>
 
-                <div
-                    class="absolute z-50 left-1/2 -translate-x-1/2 
-                        min-w-[18rem] bg-white border border-gray-200 rounded-xl shadow-lg
-                        opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto
-                        transition">
-                    <ul class="py-2 text-sm text-gray-700 space-y-2">
-                    
-                    <li>
-                        <div class="flex justify-between items-center px-4 py-2">
-                        <div class="flex items-center space-x-2">
-                            <img class="w-12 h-12 bg-gray-200 rounded-lg" src="" alt="">
-                            <p class="font-medium">Nama produk</p>
-                        </div>
-                        <p class="text-gray-600">2 × 15.000</p>
-                        </div>
-                    </li>
+            <!-- Icon Toko + Tulisan -->
+            <!-- Icon Toko + Tulisan -->
+            <div class="relative group flex items-center">
+              <button type="button" class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 
+                          .75.75V21m-4.5 0H2.36m11.14 0H18m0 
+                          0h3.64m-1.39 0V9.349M3.75 21V9.349m0 
+                          0a3.001 3.001 0 0 0 3.75-.615A2.993 
+                          2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 
+                          2.25-1.016a2.993 2.993 0 0 0 2.25 
+                          1.016c.896 0 1.7-.393 2.25-1.015a3.001 
+                          3.001 0 0 0 3.75.614m-16.5 0a3.004 
+                          3.004 0 0 1-.621-4.72l1.189-1.19A1.5 
+                          1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 
+                          1.06.44l1.19 1.189a3 3 0 0 1-.621 
+                          4.72M6.75 18h3.75a.75.75 0 0 0 
+                          .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 
+                          0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" />
+                </svg>
+              </button>
+              <p class="ml-1 text-gray-800 font-medium">Toko</p>
 
-                    <li><hr class="my-1 border-gray-200"></li>
-                </div>
+              <!-- Dropdown -->
+              <div
+                class="absolute z-50 left-1/2 -translate-x-1/2 min-w-[18rem] bg-white border border-gray-200 rounded-xl shadow-lg
+                      opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition top-10">
+                <ul class="py-2 text-sm text-gray-700 space-y-2 text-center">
+                  <li>
+                    <p class="block px-4 py-2 font-semibold">
+                      Mulai toko anda secara gratis
+                    </p>
+                  </li>
+                  <li>
+                    <a href="{{ route('seller.create') }}"
+                      class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition">
+                      Daftar toko
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
             </div>
 
 
-              <div class="relative group">
-                <button type="button" class="p-2 rounded-full hover:bg-gray-100 transition">
-                     <svg xmlns="http://www.w3.org/2000/svg"
-                          fill="none" viewBox="0 0 24 24"
-                          stroke-width="1.5" stroke="currentColor"
-                          class="w-6 h-6">
-                       <path stroke-linecap="round" stroke-linejoin="round"
-                             d="M21.75 6.75v10.5a2.25 2.25 
-                               0 0 1-2.25 2.25h-15a2.25 
-                               2.25 0 0 1-2.25-2.25V6.75m19.5 
-                               0A2.25 2.25 0 0 0 19.5 
-                               4.5h-15a2.25 2.25 0 0 
-                               0-2.25 2.25m19.5 0v.243a2.25 
-                               2.25 0 0 1-1.07 1.916l-7.5 
-                               4.615a2.25 2.25 0 0 
-                               1-2.36 0L3.32 8.91a2.25 
-                               2.25 0 0 1-1.07-1.916V6.75" />
-                     </svg>
-                   </button>
-
-                   <div
-                     class="absolute z-50 left-1/2 -translate-x-1/2 border-2 border-black w-auto bg-white border border-gray-200 rounded-xl shadow-lg
-                         opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto
-                         transition">
-                     <ul class="py-2 text-sm text-gray-700">
-                     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a></li>
-                     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a></li>
-                     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded-b-xl">Sign out</a></li>
-                     </ul>
-                 </div>
-               </div>
-          </div>
-
-          <div class="relative group flex items-center">
-              <button type="button"
-                  class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-                      viewBox="0 0 24 24" stroke-width="1.5" 
-                      stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" 
-                          d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 
-                            0 0 1 .75.75V21m-4.5 0H2.36m11.14 
-                            0H18m0 0h3.64m-1.39 0V9.349M3.75 
-                            21V9.349m0 0a3.001 3.001 0 0 0 
-                            3.75-.615A2.993 2.993 0 0 0 9.75 
-                            9.75c.896 0 1.7-.393 2.25-1.016a2.993 
-                            2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 
-                            2.25-1.015a3.001 3.001 0 0 0 
-                            3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 
-                            1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 
-                            1.06.44l1.19 1.189a3 3 0 0 1-.621 
-                            4.72M6.75 18h3.75a.75.75 0 0 0 
-                            .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 
-                            0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" />
-                  </svg>
+            <!-- Dropdown Profile -->
+            <div class="relative group">
+              <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor"
+                    class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 9a3.75 3.75 0 1 1-7.5 
+                          0 3.75 3.75 0 0 1 7.5 0ZM4.5 
+                          20.25a8.25 8.25 0 1 1 15 0v.75h-15v-.75Z" />
+                </svg>
               </button>
 
-              <p class="text-gray-800 font-medium">Toko</p>
-
-              <!-- dropdown -->
               <div
-                  class="absolute z-50 left-1/2 -translate-x-1/2 
-                      min-w-[18rem] bg-white border border-gray-200 rounded-xl shadow-lg
-                      opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto
-                      transition top-10">
-                  <ul class="py-2 text-sm text-gray-700 space-y-2">
-                  
+                class="absolute z-50 right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg
+                      opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition">
+                <ul class="py-2 text-sm text-gray-700">
+                  <li><a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a></li>
                   <li>
-                      <div class="flex justify-between items-center px-4 py-2">
-                          <div class="flex items-center space-x-2">
-                              <img class="w-12 h-12 bg-gray-200 rounded-lg" src="" alt="">
-                              <p class="font-medium">Nama produk</p>
-                          </div>
-                          <p class="text-gray-600">2 × 15.000</p>
-                      </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Keluar</button>
+                    </form>
                   </li>
-
-                  <li><hr class="my-1 border-gray-200"></li>
-                  </ul>
+                </ul>
               </div>
-          </div>
+            </div>
+          @endauth
 
 
-          <div class="hidden md:block">
-            <a href="{{ url('login') }}" class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
-              Masuk
-            </a>
-          </div>
-          <div class="hidden md:block">
-            <a href="{{ route('register') }}" class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
-              Daftar
-            </a>
+            {{-- ✅ Jika user belum login --}}
+            @guest
+              <div class="hidden md:block">
+                <a href="{{ url('login') }}"
+                   class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
+                  Masuk
+                </a>
+              </div>
+              <div class="hidden md:block">
+                <a href="{{ route('register') }}"
+                   class="px-4 py-2 rounded-lg bg-[#42551E] text-white hover:bg-[#5b7028] transition">
+                  Daftar
+                </a>
+              </div>
+            @endguest
           </div>
         </div>
       </div>
     </nav>
 
+    <!-- Bagian konten -->
     <section class="px-8 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         <div class="relative z-10 py-4 sm:py-6 lg:py-8">
           <div class="text-center">
+            <!-- Carousel -->
             <div id="default-carousel" class="relative w-full" data-carousel="slide">
-                <div class="relative h-[35vh] sm:h-[40vh] md:h-[45vh] overflow-hidden rounded-lg">
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="../../../assets/bannerHome/bannerPromo.png" class="absolute h-full object cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="../../../assets/bannerHome/bannerPromo.png" class="absolute block h-full object cover w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="../../../assets/bannerHome/bannerPromo.png" class="absolute block w-full h-full object cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="../../../assets/bannerHome/bannerPromo.png" class="absolute h-full object cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="../../../assets/bannerHome/bannerPromo.png" class="absolute h-full object cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                    </div>
+              <div class="relative h-[35vh] sm:h-[40vh] md:h-[45vh] overflow-hidden rounded-lg">
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="../../../assets/bannerHome/bannerPromo.png"
+                       class="absolute h-full object cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                       alt="...">
                 </div>
-                <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-                </div>
-                <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                        </svg>
-                        <span class="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                        <span class="sr-only">Next</span>
-                    </span>
-                </button>
+              </div>
             </div>
 
+            <!-- Kategori -->
             <div class="max-w-7xl mx-auto px-4 py-8">
               <h2 class="text-xl font-semibold text-center mb-6">Kategori Barang</h2>
-
               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-items-center">
                 <div class="flex flex-col py-4 px-4 rounded-lg bg-[#42551E] shadow-xl items-center text-center hover:scale-105 transition">
                   <div class="w-24 h-24 overflow-hidden">
@@ -262,15 +203,35 @@
                   </div>
                   <p class="mt-2 text-sm font-medium text-white">Kategori 1</p>
                 </div>
-               </div>
+              </div>
+            </div>
+
+            <div class="bg-white">
+              <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">Trending Products</h2>
+
+                <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                  <div class="group relative">
+                    <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80" />
+                    <div class="mt-4 flex justify-between">
+                      <div>
+                        <h3 class="text-sm text-gray-700">
+                          <a href="#">
+                            <span aria-hidden="true" class="absolute inset-0"></span>
+                            Basic Tee
+                          </a>
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">Black</p>
+                      </div>
+                      <p class="text-sm font-medium text-gray-900">$35</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-
-    <section>
-
     </section>
   </body>
 </html>

@@ -31,4 +31,5 @@ class BumdesController extends Controller
         return redirect()->route('home')
             ->with('success', 'Registrasi BUMDes berhasil!');
     }
+    
 }

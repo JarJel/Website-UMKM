@@ -30,13 +30,13 @@ class AuthController extends Controller
             'kata_sandi'    => Hash::make($request->kata_sandi),
             'nama_lengkap'  => $request->nama_lengkap,
             'nomor_telepon' => $request->nomor_telepon,
-            'id_role'       => 3,
+            'id_role'       => 4,
         ]);
 
         // simpan role ke pivot pengguna_role
-        $user->roles()->attach($request->role);
+        // $user->roles()->attach($request->role);
 
-        return redirect()->intended('/login/user')
+        return redirect()->route('login')
             ->with('success', 'Registrasi berhasil! Silakan login.');
     }
 }

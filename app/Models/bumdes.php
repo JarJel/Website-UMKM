@@ -28,6 +28,10 @@ class Bumdes extends Model
         'tanggal_dibuat',
     ];
 
+    protected $guarded = [];
+
+    public function toko() { return $this->hasMany(Toko::class, 'id_bumdes'); }
+
     // Relasi ke Pengguna (misalnya admin BUMDes)
     public function pengguna()
     {
