@@ -17,12 +17,17 @@ class Toko extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_pengguna', 'id_pengguna');
+        return $this->belongsTo(User::class, 'id_pengguna');
     }
 
     public function verifikasi()
     {
         return $this->hasOne(VerifikasiToko::class, 'id_toko', 'id_toko');
+    }
+
+    public function produk()
+    {
+        return $this->hasMany(Product::class, 'id_toko', 'id_toko');
     }
 }
 

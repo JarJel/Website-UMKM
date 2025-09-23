@@ -3,46 +3,59 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    // use HasFactory;
-
-    // protected $table = 'pengguna';
-    // protected $primaryKey = 'id_pengguna';
-
-    // protected $fillable = [
-    //     'nama_pengguna',
-    //     'email',
-    //     'kata_sandi',
-    //     'nama_lengkap',
-    //     'nomor_telepon',
-    //     'id_role',       // tambahkan
-    //     'sku',           // tambahkan
-    //     'ktp',           // tambahkan
-    //     'no_rekening', 
-    // ];
-
-    // protected $hidden = ['kata_sandi'];
-
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'pengguna_role', 'id_pengguna', 'id_role');
-    // }
-
-    // // override agar autentikasi pakai kolom kata_sandi
-    // public function getAuthPassword()
-    // {
-    //     return $this->kata_sandi;
-    // }'
-
     protected $table = 'pengguna';
     protected $primaryKey = 'id_pengguna';
-    protected $guarded = [];
+    public $incrementing = true;
+
+    protected $fillable = [
+        'nama_pengguna',
+        'email',
+        'kata_sandi',
+        'nama_lengkap',
+        'nomor_telepon',
+        'id_role',
+        'verification_code',
+        'email_verified_at',
+    ];
+
+    protected $hidden = ['kata_sandi', 'verification_code'];
+
+    public function getAuthPassword()
+    {
+        return $this->kata_sandi;
+    }
 
     public function toko()
     {
         return $this->hasOne(Toko::class, 'id_pengguna', 'id_pengguna');
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(ItemKeranjang::class, 'id_keranjang', 'id_pengguna');
+    }
+
+    public function alamat()
+    {
+        return $this->hasMany(Alamat::class, 'id_pengguna', 'id_pengguna');
+    }
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class, 'id_pengguna', 'id_pengguna');
+    }
+
+    public function keranjang()
+    {
+        return $this->hasOne(Keranjang::class, 'id_pengguna');
+    }
+
+
+    public function roles()
+    {
+        return $this->hasMany(PenggunaRole::class, 'id_pengguna', 'id_pengguna');
     }
 }

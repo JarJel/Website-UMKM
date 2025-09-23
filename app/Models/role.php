@@ -13,4 +13,6 @@ class Role extends Model
         'nama_role',
         'deskripsi_role',
     ];
+
+    public $timestamps = false; // <-- matikan timestamps
 }

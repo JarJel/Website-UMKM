@@ -4,52 +4,58 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class LoginController extends Controller
 {
+    // Menampilkan form login
     public function showLoginForm()
     {
-        return view('loginRegist.login');
+        return view('loginRegist.login'); // pastikan path view sesuai
     }
 
+    // Login
     public function login(Request $request)
     {
+        // 1️⃣ Validasi input
         $request->validate([
             'email' => 'required|email',
-            'kata_sandi' => 'required'
+            'kata_sandi' => 'required|min:6'
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->kata_sandi])) {
-            $request->session()->regenerate(); // penting untuk keamanan session fixation
+        // 2️⃣ Cek apakah user ada
+        $user = User::where('email', $request->email)->first();
 
-            $user = Auth::user();
-
-            // Redirect berdasarkan role
-            if ($user->id_role === 2) {
-                return redirect()->intended('/admin/dashboard');
-            } elseif ($user->id_role === 3) {
-                return redirect()->route('seller.dashboard');
-            } else {
-                return redirect()->intended('/homePage/home');
-            }
+        if (!$user) {
+            // User tidak ditemukan
+            return back()->withErrors([
+                'email' => 'Email tidak ditemukan di sistem.'
+            ])->withInput();
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah',
-        ])->onlyInput('email');
+        // 3️⃣ Cek password menggunakan Auth::attempt
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->kata_sandi])) {
+            // Password salah
+            return back()->withErrors([
+                'kata_sandi' => 'Password salah, silakan coba lagi.'
+            ])->withInput();
+        }
+
+        // 4️⃣ Login berhasil
+        $request->session()->regenerate(); // mencegah session fixation
+
+        return redirect()->intended('/homePage/home')->with('success', 'Login berhasil!');
     }
 
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
 
-        // invalidate session biar benar-benar keluar
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('success', 'Anda berhasil logout.');
+        return redirect()->route('login')->with('success', 'Anda berhasil logout.');
     }
-
 }

@@ -2,34 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBumdesRequest;
-use App\Models\Bumdes;
-use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
 
 class BumdesController extends Controller
 {
-    public function showFormBumdes() {
-        return view('loginRegist.regist.registAdmin');
-    }
-
-    public function registBumdes(StoreBumdesRequest $request)
+    public function dashboard()
     {
-        $data = $request->validated();
-
-        // Hash password sebelum simpan
-        $data['kata_sandi'] = Hash::make($request->kata_sandi);
-
-        // Upload logo jika ada
-        if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('logo_bumdes', 'public');
-        }
-
-        // Simpan ke database
-        Bumdes::create($data);
-
-        return redirect()->route('home')
-            ->with('success', 'Registrasi BUMDes berhasil!');
+        return view('bumdes.dashboard_bumdes');
     }
-    
+
+    public function verifikasiSeller()
+    {
+        return view('bumdes.verifikasi_seller');
+    }
+
+    public function daftarUsaha()
+    {
+        return view('bumdes.daftar_usaha');
+    }
+
+    public function manajemenSeller()
+    {
+        return view('bumdes.manajemen_seller');
+    }
+
+    public function transaksiLaporan()
+    {
+        return view('bumdes.transaksi_laporan');
+    }
+
+    public function arsipDokumen()
+    {
+        return view('bumdes.arsip_dokumen');
+    }
+
+    public function profil()
+    {
+        return view('bumdes.profil');
+    }
 }

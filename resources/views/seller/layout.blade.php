@@ -57,6 +57,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ url('/seller/gemini') }}" 
+                           class="flex items-center px-4 py-3 rounded-lg transition 
+                           {{ Request::is('seller/profil*') ? 'bg-green-200 text-green-800 font-bold' : 'hover:bg-[#4e6b75]' }}">
+                            <i class="fas fa-store w-5 h-5 mr-3"></i> Gemini AI
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('/seller/bantuan') }}" 
                            class="flex items-center px-4 py-3 rounded-lg transition 
                            {{ Request::is('seller/bantuan*') ? 'bg-green-200 text-green-800 font-bold' : 'hover:bg-[#4e6b75]' }}">
@@ -68,12 +75,10 @@
             
             <!-- Logout -->
             <div class="p-6">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
-                </form>
+                <a href="{{ url('/homePage/home') }}"
+                class="w-full inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition text-center">
+                    <i class="fas fa-home mr-2"></i> Beranda
+                </a>
             </div>
         </aside>
 
@@ -90,13 +95,16 @@
                     <h1 class="text-xl md:text-2xl font-bold text-gray-800">@yield('header', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <span class="text-gray-600 hidden sm:inline">Halo, {{ Auth::user()->name ?? 'Seller' }}</span>
+                    <span class="text-gray-600 hidden sm:inline">
+                        Halo, {{ Auth::user()->nama_pengguna ?? 'Seller' }}
+                    </span>
                     <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
-                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name ?? 'Seller' }}&background=22c55e&color=fff&bold=true" 
-                             alt="Avatar" class="w-full h-full object-cover">
+                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_pengguna ?? 'Seller' }}&background=22c55e&color=fff&bold=true" 
+                            alt="Avatar" class="w-full h-full object-cover">
                     </div>
                 </div>
             </header>
+
 
             <!-- Cards -->
             <main class="p-4 md:p-8">

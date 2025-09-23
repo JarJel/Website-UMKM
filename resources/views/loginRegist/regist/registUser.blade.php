@@ -22,11 +22,6 @@
             <img src="../../assets/imageInternal/logoBatara.png" class="w-full h-full object-contain">
           </div>
           <div class="relative inline-block group">
-            <a href="{{ url('/login/user') }}"
-              class="flex items-center justify-center space-x-2 text-white bg-[#42551E] px-4 py-2 rounded-lg hover:bg-[#5b7028] transition">
-              <span>Masuk</span>
-            </a>
-          </div>
         </div>
       </div>
     </nav>
@@ -39,45 +34,65 @@
         </h1>
 
         <form action="{{ route('register.post') }}" method="post" class="space-y-4">
-          @csrf
+  @csrf
 
-          <div>
-            <label for="nama_pengguna" class="block mb-1 text-gray-200">Username</label>
-            <input id="nama_pengguna" name="nama_pengguna" type="text"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
-                     focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              placeholder="Username" required>
-          </div>
+  {{-- Tampilkan error validasi --}}
+  @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-3 rounded-lg">
+      <ul class="list-disc pl-5 text-sm">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
 
-          <div>
-            <label for="email" class="block mb-1 text-gray-200">Email</label>
-            <input id="email" name="email" type="email"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
-                     focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              placeholder="Email" required>
-          </div>
+  {{-- Success message --}}
+  @if(session('success'))
+    <div class="bg-green-100 text-green-700 p-3 rounded-lg mb-4">
+      {{ session('success') }}
+    </div>
+  @endif
 
-          <div>
-            <label for="kata_sandi" class="block mb-1 text-gray-200">Password</label>
-            <input id="kata_sandi" name="kata_sandi" type="password"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
-                     focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              placeholder="Password" required>
-          </div>
+  {{-- Field input tetap sama --}}
+  <div>
+    <label for="nama_pengguna" class="block mb-1 text-gray-200">Username</label>
+    <input id="nama_pengguna" name="nama_pengguna" type="text"
+      class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
+             focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+      placeholder="Username" value="{{ old('nama_pengguna') }}" required>
+  </div>
 
-          <div>
-            <label for="kata_sandi_confirmation" class="block mb-1 text-gray-200">Confirm Password</label>
-            <input id="kata_sandi_confirmation" name="kata_sandi_confirmation" type="password"
-              class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
-                     focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-              placeholder="Confirm Password" required>
-          </div>
+  <div>
+    <label for="email" class="block mb-1 text-gray-200">Email</label>
+    <input id="email" name="email" type="email"
+      class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
+             focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+      placeholder="Email" value="{{ old('email') }}" required>
+  </div>
 
-          <button type="submit"
-            class="bg-white shadow-lg mt-4 p-2 text-[#42551E] rounded-lg w-full hover:scale-105 transition duration-300 ease-in-out">
-            Sign Up
-          </button>
-        </form>
+  <div>
+    <label for="kata_sandi" class="block mb-1 text-gray-200">Password</label>
+    <input id="kata_sandi" name="kata_sandi" type="password"
+      class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
+             focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+      placeholder="Password" required>
+  </div>
+
+  <div>
+    <label for="kata_sandi_confirmation" class="block mb-1 text-gray-200">Confirm Password</label>
+    <input id="kata_sandi_confirmation" name="kata_sandi_confirmation" type="password"
+      class="border p-2 bg-white text-gray-900 shadow-md placeholder:text-sm
+             focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
+      placeholder="Confirm Password" required>
+  </div>
+
+  <button type="submit"
+    class="bg-white shadow-lg mt-4 p-2 text-[#42551E] rounded-lg w-full hover:scale-105 transition duration-300 ease-in-out">
+    Sign Up
+  </button>
+</form>
+
 
         <!-- Divider -->
         <div class="flex items-center my-4">

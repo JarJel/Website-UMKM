@@ -24,6 +24,26 @@ class Product extends Model
         'tanggal_ditambahkan',
     ];
 
+    public function itemKeranjang()
+    {
+        return $this->hasMany(ItemKeranjang::class, 'id_produk');
+    }
+
+    public function toko()
+    {
+        return $this->belongsTo(Toko::class, 'id_toko', 'id_toko');
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(VarianProduk::class, 'id_produk', 'id_produk');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+    }
+
     public function getRouteKeyName()
     {
         return 'id_produk';

@@ -41,5 +41,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'secret' => env('GEMINI_API_SECRET'),
+        'base_url' => env('GEMINI_API_BASE'),
+    ],
+
 
 ];

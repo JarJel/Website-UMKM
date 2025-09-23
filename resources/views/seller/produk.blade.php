@@ -4,7 +4,11 @@
 @section('header', 'Daftar Produk')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" x-data="{ openDetail: false, detailProduk: {} }">
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
     <!-- Search & Filter Bar -->
     <div class="bg-white p-6 rounded-lg shadow-md">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -55,14 +59,13 @@
                 @forelse($products as $product)
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-6 py-4 flex items-center space-x-3">
-                        <img src="{{ $product->gambar_produk ? asset('storage/'.$product->gambar_produk) : 'https://placehold.co/50x50' }}" 
+                        <img src="{{ asset(str_replace('storage-public-', 'storage/', $product->gambar_produk)) }}" 
                              alt="Produk" class="w-12 h-12 rounded-lg">
                         <div>
                             <div class="font-semibold text-gray-800">{{ $product->nama_produk }}</div>
                             <div class="text-gray-500 text-sm">SKU: {{ $product->id_produk }}</div>
                         </div>
                     </td>
-
                     <td class="px-6 py-4">Rp {{ number_format($product->harga_dasar, 0, ',', '.') }}</td>
                     <td class="px-6 py-4">
                         <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Aktif</span>
@@ -75,6 +78,29 @@
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-800">Hapus</button>
                             </form>
+                            <!-- Tombol Detail -->
+                            <button 
+                                @click="openDetail = true; detailProduk = {
+                                    nama: '{{ $product->nama_produk }}',
+                                    sku: '{{ $product->id_produk }}',
+                                    gambar: '{{ asset(str_replace('storage-public-', 'storage/', $product->gambar_produk)) }}',
+                                    variants: [
+                                        @foreach($product->varian ?? [] as $v)
+                                        { 
+                                            id_varian: '{{ $v->id_varian }}', 
+                                            nama_varian: '{{ $v->nama_varian }}', 
+                                            sku: '{{ $v->sku }}', 
+                                            harga_varian: '{{ number_format($v->harga_varian,0,',','.') }}', 
+                                            stok_varian: '{{ $v->stok_varian }}' 
+                                        },
+                                        @endforeach
+                                    ]
+                                }"
+                                class="text-green-600 hover:text-green-800"
+                            >
+                                Detail
+                            </button>
+
                         </div>
                     </td>
                 </tr>
@@ -86,5 +112,51 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Modal Detail Produk -->
+<div 
+    x-show="openDetail" 
+    x-cloak
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    x-transition
+>
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto relative">
+        
+        <img :src="detailProduk.gambar" alt="Produk" class="w-24 h-24 rounded-lg mx-auto mb-4">
+        <h3 class="text-lg font-bold text-gray-800 mb-2" x-text="detailProduk.nama"></h3>
+        <p class="text-gray-600 mb-4">SKU Produk: <span x-text="detailProduk.sku"></span></p>
+
+        <!-- Table Varian -->
+        <table class="w-full text-left border border-gray-200">
+            <thead class="bg-gray-100 text-gray-700 text-sm">
+                <tr>
+                    <th class="px-3 py-2 border-b">Nama Varian</th>
+                    <th class="px-3 py-2 border-b">SKU</th>
+                    <th class="px-3 py-2 border-b">Harga</th>
+                    <th class="px-3 py-2 border-b">Stok</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="variant in detailProduk.variants" :key="variant.id_varian">
+                    <tr class="text-sm hover:bg-gray-50">
+                        <td class="px-3 py-2 border-b" x-text="variant.nama_varian"></td>
+                        <td class="px-3 py-2 border-b" x-text="variant.sku"></td>
+                        <td class="px-3 py-2 border-b" x-text="'Rp ' + variant.harga_varian"></td>
+                        <td class="px-3 py-2 border-b" x-text="variant.stok_varian"></td>
+                    </tr>
+                </template>
+                <tr x-show="!detailProduk.variants || detailProduk.variants.length == 0">
+                    <td colspan="4" class="text-center py-2 text-gray-500">Belum ada varian</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="mt-4 flex justify-end">
+            <button @click="openDetail = false" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Tutup</button>
+        </div>
+    </div>
 </div>
+
+<!-- Alpine.js -->
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 @endsection

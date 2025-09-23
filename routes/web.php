@@ -7,6 +7,13 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\BumdesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\TokoController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\AlamatController;
 
 //REGIST SELLER
 Route::get('/register-seller', [SellerController::class, 'create'])->name('seller.create');
@@ -16,6 +23,9 @@ Route::post('/register-seller', [SellerController::class, 'store'])->name('selle
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
+Route::get('/verify-code', [AuthController::class,'showVerifyCodeForm'])->name('verify.code.form');
+Route::post('/verify-code', [AuthController::class,'verifyCode'])->name('verify.code');
+
 //REGIST BUMDES
 Route::get('/register-bumdes', [BumdesController::class, 'showFormBumdes'])->name('registBumdes');
 Route::post('/register-bumdes', [BumdesController::class, 'registBumdes'])->name('registBumdes');
@@ -23,6 +33,8 @@ Route::post('/register-bumdes', [BumdesController::class, 'registBumdes'])->name
 //LOGIN USER
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
@@ -32,12 +44,13 @@ Route::get('/phpinfo', function() {
 });
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // HOMEPAGE SECTION
 Route::get('/homePage/home', function () {
     return view('homePage.homePage');
 })->name('home');
+
+Route::get('/seller/gemini', [GeminiController::class, 'index'])->name('seller.gemini');
 
 Route::get('/seller/dashboard', function () {
     return view('seller.dashboard');
@@ -79,3 +92,74 @@ Route::prefix('bumdes')->middleware('auth')->group(function(){
     Route::get('verifikasi-toko/{id}/edit', [BumdesController::class, 'edit'])->name('bumdes.verifikasi.edit');
     Route::post('verifikasi-toko/{id}/update', [BumdesController::class, 'update'])->name('bumdes.verifikasi.update');
 });
+
+Route::prefix('bumdes')->group(function () {
+    Route::get('/dashboard', [BumdesController::class, 'dashboard'])->name('bumdes.dashboard');
+    Route::get('/verifikasi-seller', [BumdesController::class, 'verifikasiSeller'])->name('bumdes.verifikasi');
+    Route::get('/daftar-usaha', [BumdesController::class, 'daftarUsaha'])->name('bumdes.usaha');
+    Route::get('/manajemen_seller', [BumdesController::class, 'manajemenSeller'])->name('bumdes.seller');
+    Route::get('/transaksi-laporan', [BumdesController::class, 'transaksiLaporan'])->name('bumdes.laporan');
+    Route::get('/arsip-dokumen', [BumdesController::class, 'arsipDokumen'])->name('bumdes.arsip');
+    Route::get('/profil', [BumdesController::class, 'profil'])->name('bumdes.profil');
+});
+
+use App\Http\Controllers\HomeController;
+
+Route::get('/homePage/home', [HomeController::class, 'index'])->name('home');
+
+Route::view('/checkout', 'checkout.checkout')->name('checkout');
+Route::get('/toko/{id}', [TokoController::class, 'show'])->name('toko.show');
+
+
+use App\Http\Controllers\CartController;
+
+Route::get('/keranjang/dropdown', [CartController::class, 'dropdown'])->name('keranjang.dropdown');
+Route::post('/keranjang/add/{id_produk}', [CartController::class, 'add'])->name('keranjang.add');
+Route::delete('/keranjang/item/{id}', [CartController::class, 'removeItem'])->name('keranjang.removeItem');
+
+Route::get('/keranjang', [CartController::class, 'index'])->name('keranjang.index');
+Route::post('/keranjang/update/{id}', [CartController::class, 'updateItem']);
+Route::delete('/keranjang/remove/{id}', [CartController::class, 'removeItem']);
+
+Route::get('/produk/{id}', [ProductController::class, 'show'])->name('produk.show');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+
+// Reset password
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Email verification
+Route::get('email/verify', [EmailVerificationController::class, 'notice'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
+Route::post('email/resend', [EmailVerificationController::class, 'resend'])->name('verification.resend');
+
+Route::get('/kategori/{id}', [KategoriController::class, 'show'])->name('kategori.show');
+
+use App\Http\Controllers\CheckoutPendingController;
+
+Route::post('/checkout/process', [CheckoutPendingController::class, 'process'])
+    ->name('checkout.pending.process')
+    ->middleware('auth');
+
+Route::get('/checkout/{id_pending}/payment', [CheckoutPendingController::class, 'payment'])
+    ->name('checkout.payment');
+
+Route::post('/checkout/{id_pending}/confirm', [CheckoutPendingController::class, 'confirmPayment'])
+    ->name('checkout.confirm');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/alamat/store', [AlamatController::class, 'store'])->name('alamat.store');
+    Route::get('/alamat/list', [AlamatController::class, 'list'])->name('alamat.list');
+    Route::post('/alamat/pilih/{id_alamat}', [AlamatController::class, 'pilihAlamat'])->name('alamat.pilih');
+
+});
+
+
+
