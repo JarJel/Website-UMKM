@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AlamatController;
-
+use App\Http\Controllers\CheckoutController;
 //REGIST SELLER
 Route::get('/register-seller', [SellerController::class, 'create'])->name('seller.create');
 Route::post('/register-seller', [SellerController::class, 'store'])->name('seller.store');
@@ -152,6 +152,20 @@ Route::get('/checkout/{id_pending}/payment', [CheckoutPendingController::class, 
 
 Route::post('/checkout/{id_pending}/confirm', [CheckoutPendingController::class, 'confirmPayment'])
     ->name('checkout.confirm');
+
+Route::post('/checkout/{id_pending}/pay', [CheckoutController::class,'payNow'])
+    ->name('checkout.payNow');
+
+Route::get('/checkout/{id_pesanan}/success', [CheckoutController::class,'success'])
+    ->name('checkout.success');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout/{id}/payment', [CheckoutController::class,'payment'])->name('checkout.payment');
+    Route::post('/checkout/{id}/pay', [CheckoutController::class,'payNow'])->name('checkout.payNow');
+
+    Route::get('/alamat/list', [CheckoutController::class,'alamatList'])->name('alamat.list');
+    Route::post('/alamat/pilih/{id}', [CheckoutController::class,'pilihAlamat']);
+});
 
 
 Route::middleware(['auth'])->group(function () {

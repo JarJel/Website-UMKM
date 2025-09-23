@@ -133,17 +133,6 @@ class CheckoutPendingController extends Controller
 
         $snapToken = Snap::getSnapToken($params);
 
-        // Simpan transaksi
-        Transaksi::create([
-            'id_pesanan'       => $pesanan->id_pending,
-            'gateway_pembayaran' => 'midtrans',
-            'status_transaksi'   => 'pending',
-            'snap_token'         => $snapToken,
-            'gross_amount'       => $total,
-            'raw_response'       => json_encode($params),
-            'tanggal_transaksi'  => now(),
-        ]);
-
         return view('checkout.payment', compact(
             'pesanan','cartItems','totalProduk','biayaPengiriman','total','snapToken'
         ));
