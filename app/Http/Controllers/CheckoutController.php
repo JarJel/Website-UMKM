@@ -49,7 +49,7 @@ class CheckoutController extends Controller
     // simpan item pesanan
     foreach ($pesananPending->items as $item) {
         $pesanan->items()->create([
-            'produk_id' => $item->produk_id,
+            'id_produk' => $item->id_produk,
             'jumlah'    => $item->jumlah,
             'harga'     => $item->harga,
         ]);
@@ -64,6 +64,22 @@ class CheckoutController extends Controller
     ]);
 }
 
+
+    public function tracking($id_pesanan)
+{
+    $pesanan = Pesanan::with('items.produk')->findOrFail($id_pesanan);
+    $alamat  = $pesanan->alamat; // relasi alamat harus ada di model Pesanan
+
+    // contoh status timeline
+    $statusList = [
+        'pending' => 'Menunggu pembayaran',
+        'diproses' => 'Pesanan sedang diproses',
+        'dikirim' => 'Pesanan dikirim',
+        'selesai' => 'Pesanan selesai'
+    ];
+
+    return view('tracking.tracking', compact('pesanan', 'alamat', 'statusList'));
+}
 
 
     // Load semua alamat user

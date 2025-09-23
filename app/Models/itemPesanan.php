@@ -14,6 +14,11 @@ class ItemPesanan extends Model
         'harga_saat_pesan', 'jumlah', 'berat_per_item_kg'
     ];
 
+    public function produk()
+    {
+        return $this->belongsTo(Product::class, 'id_produk', 'id_produk');
+    }
+
     public function pesanan()
     {
         return $this->belongsTo(Pesanan::class, 'id_pesanan');

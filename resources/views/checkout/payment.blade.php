@@ -240,7 +240,7 @@ function alamatForm(){
           .then(res => res.json())
           .then(data => {
               if (data.success) {
-                  window.location.href = `/checkout/${data.id_pesanan}/success`;
+                  window.location.href = `/pesanan/${data.id_pesanan}/tracking`;
               } else {
                   this.showToast('Pembayaran gagal: ' + data.message);
               }

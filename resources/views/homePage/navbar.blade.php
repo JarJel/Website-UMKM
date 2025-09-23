@@ -37,23 +37,71 @@
             <!-- Wrapper untuk kedua icon -->
             <div class="flex items-center">
                 <!-- Icon Notifikasi -->
-                <div class="relative group">
-                    <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6 text-gray-700">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 0 0 
-                                5.454-1.31A8.967 8.967 0 0 1 
-                                18 9.75V9A6 6 0 0 0 
-                                6 9v.75a8.967 8.967 0 0 1-2.312 
-                                6.022c1.733.64 3.56 1.085 
-                                5.455 1.31m5.714 0a24.255 
-                                24.255 0 0 1-5.714 0m5.714 
-                                0a3 3 0 1 1-5.714 0" />
-                    </svg>
-                    </button>
-                </div>
+                 <!-- Icon Notifikasi -->
+<div class="relative group">
+    <button class="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6 text-gray-700">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 
+                    5.454-1.31A8.967 8.967 0 0 1 
+                    18 9.75V9A6 6 0 0 0 
+                    6 9v.75a8.967 8.967 0 0 1-2.312 
+                    6.022c1.733.64 3.56 1.085 
+                    5.455 1.31m5.714 0a24.255 
+                    24.255 0 0 1-5.714 0m5.714 
+                    0a3 3 0 1 1-5.714 0" />
+        </svg>
+    </button>
+
+    <!-- Dropdown -->
+    <div class="absolute top-full left-1/2 w-80 bg-white rounded-xl shadow-lg z-50 
+                opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto
+                -translate-x-1/2 transition-all duration-200">
+        <div class="p-4 border-b font-semibold text-gray-800">Update Pengiriman</div>
+        <ul class="p-4 space-y-4">
+            @php
+                $statuses = [
+                    'pending' => 'Pesanan dibuat',
+                    'diproses' => 'Sedang diproses',
+                    'dikirim' => 'Sedang dikirim',
+                    'selesai' => 'Pesanan selesai'
+                ];
+                $statusKeys = array_keys($statuses);
+                $activeIndex = array_search($pesanan->status_pesanan, $statusKeys);
+            @endphp
+
+            @foreach($statuses as $key => $label)
+                @php
+                    $currentIndex = $loop->index;
+                    $isActive = $currentIndex <= $activeIndex;
+                @endphp
+                <li class="flex items-center space-x-3">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center font-bold
+                        {{ $isActive ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-700' }}">
+                        {{ $loop->iteration }}
+                    </span>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-sm {{ $isActive ? 'text-blue-600' : 'text-gray-700' }}">
+                            {{ $label }}
+                        </span>
+                        @if($isActive && $pesanan->status_pesanan == $key)
+                            <span class="text-xs text-gray-400">Status saat ini</span>
+                        @endif
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+        <div class="p-2 text-center border-t">
+            <a href="{{ route('checkout.tracking', $pesanan->id_pesanan) }}" 
+               class="text-blue-600 text-sm hover:underline">
+               Lihat semua detail
+            </a>
+        </div>
+    </div>
+</div>
+
 
                 <!-- Icon Keranjang -->
                 <div class="relative group">

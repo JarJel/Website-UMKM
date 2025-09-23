@@ -175,5 +175,15 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::middleware('auth')->group(function() {
+    Route::get('/pesanan/{id}/tracking', [CheckoutController::class, 'tracking'])
+        ->name('checkout.tracking');
+});
+
+use App\Http\Controllers\SellerDashboardController;
+
+Route::get('/seller/pesanan', [SellerDashboardController::class, 'index'])
+    ->name('seller.pesanan')
+    ->middleware('auth');
 
 

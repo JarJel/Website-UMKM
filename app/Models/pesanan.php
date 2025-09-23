@@ -17,10 +17,15 @@ class Pesanan extends Model
 
     public function items()
     {
-        return $this->hasMany(ItemPesanan::class, 'id_pesanan');
+        return $this->hasMany(ItemPesanan::class, 'id_pesanan', 'id_pesanan');
     }
 
     public function alamat(){
         return $this->belongsTo(Alamat::class, 'id_alamat');
+    }
+
+    public function toko()
+    {
+        return $this->belongsTo(Toko::class, 'id_toko');
     }
 }
