@@ -45,6 +45,10 @@ class LoginController extends Controller
         // 4️⃣ Login berhasil
         $request->session()->regenerate(); // mencegah session fixation
 
+        if ($user->id_role == 4) {
+            return redirect()->intended('/superadmin/dashboard')->with('success', 'Login berhasil sebagai Super Admin!');
+        }
+
         return redirect()->intended('/homePage/home')->with('success', 'Login berhasil!');
     }
 

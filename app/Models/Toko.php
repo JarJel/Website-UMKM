@@ -17,7 +17,32 @@ class Toko extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_pengguna');
+        return $this->belongsTo(User::class, 'id_pengguna', 'id_pengguna');
+    }
+
+    public function bumdes()
+    {
+        return $this->belongsTo(Bumdes::class, 'id_bumdes', 'id_bumdes');
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'id_provinsi', 'id');
+    }
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
     }
 
     public function verifikasi()

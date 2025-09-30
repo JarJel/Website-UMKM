@@ -19,6 +19,7 @@ class User extends Authenticatable
         'id_role',
         'verification_code',
         'email_verified_at',
+        'photo'
     ];
 
     protected $hidden = ['kata_sandi', 'verification_code'];

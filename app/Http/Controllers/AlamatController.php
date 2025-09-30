@@ -40,16 +40,25 @@ class AlamatController extends Controller
     // app/Http/Controllers/AlamatController.php
     public function pilihAlamat($id_alamat)
     {
-        $userId = Auth::id();
+        $userId = auth()->id();
 
-        // Reset semua alamat default
+        // Set semua alamat user menjadi is_default = 0
         Alamat::where('id_pengguna', $userId)->update(['is_default' => 0]);
 
-        // Set alamat yang dipilih sebagai default
-        Alamat::where('id_alamat', $id_alamat)->update(['is_default' => 1]);
+        // Set alamat yang dipilih menjadi is_default = 1
+        $alamat = Alamat::where('id_alamat', $id_alamat)
+                        ->where('id_pengguna', $userId)
+                        ->firstOrFail();
+        $alamat->is_default = 1;
+        $alamat->save();
 
-        return response()->json(['success' => true]);
+        // Kembalikan response JSON
+        return response()->json([
+            'success' => true,
+            'id_alamat' => $alamat->id_alamat,
+        ]);
     }
+
 
 
     // Menampilkan semua alamat user yang login

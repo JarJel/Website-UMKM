@@ -9,9 +9,11 @@ class RoleMiddleware
 {
     public function handle($request, Closure $next, ...$roles)
     {
+        // cek user login
         if (!Auth::check() || !in_array(Auth::user()->id_role, $roles)) {
             abort(403, 'Unauthorized');
         }
+
         return $next($request);
     }
 }

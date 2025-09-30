@@ -12,5 +12,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // ... middleware lain ...
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
     ];
 }

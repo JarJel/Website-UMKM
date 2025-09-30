@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'bumdes' => [
+        'driver' => 'session',
+        'provider' => 'bumdes',
+    ],
     ],
 
     /*
@@ -69,6 +74,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'bumdes' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Bumdes::class, // sesuaikan dengan model Bumdes kamu
+    ],
     ],
 
     /*

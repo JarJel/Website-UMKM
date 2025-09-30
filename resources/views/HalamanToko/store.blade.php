@@ -89,7 +89,9 @@
                 @forelse ($produk as $p)
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-105 transition duration-300">
                     <a href="{{ route('produk.show', $p->id_produk) }}">
-                        <img src="{{ asset($p->gambar_produk) }}" class="w-full h-32 object-cover">
+                            <img src="{{ asset('storage/' . $p->gambar_produk) }}" 
+                              alt="{{ $p->nama_produk }}" 
+                              class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-40" />
                         <div class="p-3">
                             <h4 class="font-semibold text-sm text-gray-800 mb-1">{{ $p->nama_produk }}</h4>
                             <p class="text-sm font-bold text-green-600 mb-1">Rp {{ number_format($p->harga_dasar,0,',','.') }}</p>

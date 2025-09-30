@@ -108,37 +108,6 @@
 
             <!-- Cards -->
             <main class="p-4 md:p-8">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg transition">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-truck text-blue-500 text-xl mr-3"></i>
-                            <p class="text-gray-500 text-sm">Pesanan Belum Diproses</p>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">12</h2>
-                    </div>
-                    <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg transition">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-box-open text-yellow-500 text-xl mr-3"></i>
-                            <p class="text-gray-500 text-sm">Produk Terjual</p>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">540</h2>
-                    </div>
-                    <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg transition">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-money-bill-wave text-green-500 text-xl mr-3"></i>
-                            <p class="text-gray-500 text-sm">Pendapatan Bulan Ini</p>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Rp 5,4 Juta</h2>
-                    </div>
-                    <div class="bg-white rounded-xl shadow p-5 hover:shadow-lg transition">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-star text-purple-500 text-xl mr-3"></i>
-                            <p class="text-gray-500 text-sm">Rating Toko</p>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">4.8</h2>
-                    </div>
-                </div>
-
                 <!-- Dynamic Content -->
                 <div>
                     @yield('content')

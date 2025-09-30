@@ -16,7 +16,7 @@
     
     <!-- Kolom Kiri: Foto Produk -->
     <div>
-      <img src="{{ asset($product->gambar_produk) }}" 
+      <img src="{{ asset('storage/' . $product->gambar_produk) }}"
            alt="{{ $product->nama_produk }}" 
            class="w-full rounded-lg shadow-md">
     </div>

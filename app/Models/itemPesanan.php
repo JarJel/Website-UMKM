@@ -11,6 +11,7 @@ class ItemPesanan extends Model
 
     protected $fillable = [
         'id_pesanan', 'id_varian_produk', 'nama_produk_snapshot',
+        'id_produk',
         'harga_saat_pesan', 'jumlah', 'berat_per_item_kg'
     ];
 

@@ -8,11 +8,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen" x-data="alamatForm()" x-init="init()" x-ref="alamatRoot">
 
 @include('homePage.navbar')
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-24" x-data="alamatForm()" x-init="init()" x-ref="alamatRoot">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow p-6 mt-24">
 
     <h1 class="text-2xl font-bold mb-6 border-b pb-3">
         Pembayaran — Pesanan #{{ $pesanan->id_pending ?? '-' }}
@@ -20,30 +20,37 @@
 
     <div class="flex flex-col md:flex-row gap-6">
 
-        {{-- Alamat & Produk --}}
+        <!-- Alamat & Produk -->
         <div class="md:w-2/3 flex flex-col gap-6">
 
-            {{-- Toast Notifikasi --}}
+            <!-- Toast Notifikasi -->
             <div x-show="toastShow" x-transition class="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
                 <span x-text="toastMessage"></span>
             </div>
 
-            {{-- Alamat --}}
+            <!-- Alamat -->
             <div class="bg-gray-50 p-4 rounded mb-4">
                 <template x-if="alamatTersimpan">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-700 font-medium">Alamat:</p>
-                            <p class="font-semibold" x-text="alamat"></p>
-                            <p>Kode Pos: <span x-text="kodepos"></span> | HP: <span x-text="telepon"></span></p>
+                    <div class="flex justify-between items-center bg-gray-50 p-4 rounded">
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500 flex-shrink-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.5-7.5 11.25-7.5 11.25S4.5 18 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-gray-700 font-medium" x-text="nama">Nama Penerima</p>
+                                <p class="text-sm text-gray-600" x-text="alamat">Alamat lengkap</p>
+                                <p class="text-sm text-gray-500">
+                                    Kode Pos: <span x-text="kodepos"></span> | HP: <span x-text="telepon"></span>
+                                </p>
+                            </div>
                         </div>
                         <div>
-                            <button @click="open = true" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                Ubah / Tambah Alamat
-                            </button>
+                            <button @click="open = true" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Ubah / Tambah Alamat</button>
                         </div>
                     </div>
                 </template>
+
                 <template x-if="!alamatTersimpan">
                     <div class="flex justify-between items-center">
                         <p class="text-gray-700 font-medium">Belum ada alamat</p>
@@ -52,38 +59,32 @@
                 </template>
             </div>
 
-            {{-- Modal Alamat --}}
+            <!-- Modal Alamat -->
             <div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
                 <div class="bg-white rounded-lg w-full max-w-md p-6 relative" @click.away="open=false">
                     <h2 class="text-xl font-bold mb-4">Alamat</h2>
-
-                    {{-- Tabs --}}
                     <div class="flex gap-2 mb-4">
                         <button @click="tab='tambah'" :class="tab==='tambah'? 'bg-blue-600 text-white':'bg-gray-200 text-gray-700'" class="px-3 py-1 rounded">Tambah Alamat</button>
                         <button @click="tab='pilih'" :class="tab==='pilih'? 'bg-blue-600 text-white':'bg-gray-200 text-gray-700'" class="px-3 py-1 rounded">Pilih Alamat</button>
                     </div>
 
-                    {{-- Tab Tambah --}}
+                    <!-- Tab Tambah -->
                     <div x-show="tab==='tambah'" class="space-y-4">
                         <label>Nama Penerima</label>
                         <input type="text" x-model="nama" placeholder="Nama penerima" class="border rounded p-2 w-full">
-
                         <label>Alamat Lengkap</label>
                         <textarea x-model="alamat" placeholder="Alamat lengkap" class="border rounded p-2 w-full" rows="3"></textarea>
-
                         <label>Kode Pos</label>
                         <input type="text" x-model="kodepos" placeholder="Kode Pos" class="border rounded p-2 w-full">
-
                         <label>Nomor HP</label>
                         <input type="text" x-model="telepon" placeholder="Nomor HP" class="border rounded p-2 w-full">
-
                         <div class="flex justify-end gap-2 mt-4">
                             <button @click="open=false" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Batal</button>
                             <button @click="simpanAlamat()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Simpan</button>
                         </div>
                     </div>
 
-                    {{-- Tab Pilih --}}
+                    <!-- Tab Pilih -->
                     <div x-show="tab==='pilih'" class="space-y-2 max-h-64 overflow-y-auto">
                         <template x-for="item in alamatDb" :key="item.id_alamat">
                             <div class="border p-2 rounded flex justify-between items-center">
@@ -101,11 +102,13 @@
                 </div>
             </div>
 
-            {{-- List Produk --}}
+            <!-- List Produk -->
             <div class="space-y-4">
                 @foreach($cartItems as $item)
                     <div class="flex items-center border-b pb-2 gap-3 flex-wrap">
-                        <img src="{{ $item->produk->gambar_produk ?? 'https://via.placeholder.com/80' }}" class="w-20 h-20 object-cover rounded">
+                        <img src="{{ $item->produk && $item->produk->gambar_produk 
+                            ? asset('storage/' . $item->produk->gambar_produk) 
+                            : 'https://via.placeholder.com/80' }}" class="w-20 h-20 object-cover rounded">
                         <div class="flex-1 flex flex-col">
                             <div class="font-medium truncate">{{ $item->produk->nama_produk }}</div>
                             <div class="text-gray-500">Jumlah: {{ $item->jumlah }}</div>
@@ -116,7 +119,7 @@
             </div>
         </div>
 
-        {{-- Ringkasan --}}
+        <!-- Ringkasan -->
         <div class="md:w-1/3 bg-gray-50 rounded p-4 flex flex-col gap-4 h-fit shadow-sm">
             <div class="flex justify-between">
                 <span>Subtotal</span>
@@ -131,12 +134,29 @@
                 <span class="text-green-600">Rp {{ number_format($total ?? 0,0,',','.') }}</span>
             </div>
 
-            {{-- Tombol Bayar --}}
-            <button @click="payNow()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 mt-4">
-                Bayar Sekarang
+            <button @click="payNow()" :disabled="isLoading" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 mt-4 flex justify-center items-center gap-2">
+                <span x-show="!isLoading">Bayar Sekarang</span>
+                <span x-show="isLoading" class="flex items-center gap-2">
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                    </svg>
+                    Memproses...
+                </span>
             </button>
         </div>
+    </div>
+</div>
 
+<!-- Modal Konfirmasi Keluar -->
+<div x-show="keluarModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">Konfirmasi Keluar</h2>
+        <p class="mb-6">Apakah Anda yakin ingin meninggalkan halaman? Data yang belum disimpan bisa hilang.</p>
+        <div class="flex justify-end gap-2">
+            <button @click="keluarModal = false" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Batal</button>
+            <button @click="window.history.back();" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Keluar</button>
+        </div>
     </div>
 </div>
 
@@ -145,10 +165,19 @@ function alamatForm(){
     return {
         nama:'', alamat:'', kodepos:'', telepon:'',
         open:false, tab:'tambah', alamatTersimpan:false, alamatDb:[],
-        toastShow:false, toastMessage:'',
+        toastShow:false, toastMessage:'', keluarModal:false,
+        isLoading:false, // loading button
 
         init(){
             this.loadAlamatDb();
+
+            // Tangkap tombol back history
+            window.addEventListener('popstate', (e) => {
+                e.preventDefault();
+                this.keluarModal = true;
+                history.pushState(null, null, location.href); // tetap di halaman
+            });
+            history.pushState(null, null, location.href);
         },
 
         showToast(msg){
@@ -222,31 +251,34 @@ function alamatForm(){
         },
 
         payNow() {
-          if (!this.alamatTersimpan) {
-              this.showToast('Pilih alamat terlebih dahulu!');
-              return;
-          }
-
-          let alamat = this.alamatDb.find(a => a.is_default == 1);
-
-          fetch(`/checkout/{{ $pesanan->id_pending }}/pay`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
-              },
-              body: JSON.stringify({ id_alamat: alamat.id_alamat })
-          })
-          .then(res => res.json())
-          .then(data => {
-              if (data.success) {
-                  window.location.href = `/pesanan/${data.id_pesanan}/tracking`;
-              } else {
-                  this.showToast('Pembayaran gagal: ' + data.message);
-              }
-          })
-          .catch(err => this.showToast('Terjadi kesalahan koneksi'));
-      }
+            if (!this.alamatTersimpan) {
+                this.showToast('Pilih alamat terlebih dahulu!');
+                return;
+            }
+            this.isLoading = true;
+            let alamat = this.alamatDb.find(a => a.is_default == 1);
+            fetch(`/checkout/{{ $pesanan->id_pending }}/pay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ id_alamat: alamat.id_alamat })
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.isLoading = false;
+                if (data.success) {
+                    window.location.href = `/pesanan/${data.id_pesanan}/tracking`;
+                } else {
+                    this.showToast('Pembayaran gagal: ' + data.message);
+                }
+            })
+            .catch(err => {
+                this.isLoading = false;
+                this.showToast('Terjadi kesalahan koneksi');
+            });
+        }
     }
 }
 </script>

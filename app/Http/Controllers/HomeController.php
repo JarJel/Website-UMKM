@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Kategori;   // <-- jangan lupa import
 use Illuminate\Support\Facades\Auth;
-
 
 class HomeController extends Controller
 {
-
     public function dashboardToko()
     {
         $user = Auth::user();
@@ -24,7 +23,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->take(8)->get(); // ambil 8 produk terbaru
-        return view('homePage.homePage', compact('products'));
+        // ambil kategori
+        $categories = Kategori::all();
+
+        // ambil produk terbaru
+        $products = Product::latest()->take(8)->get();
+
+        // kirim ke view
+        return view('homePage.homePage', compact('products', 'categories'));
     }
 }

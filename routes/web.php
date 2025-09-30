@@ -15,9 +15,16 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\CheckoutController;
-//REGIST SELLER
-Route::get('/register-seller', [SellerController::class, 'create'])->name('seller.create');
-Route::post('/register-seller', [SellerController::class, 'store'])->name('seller.store');
+use App\Http\Controllers\VerifikasiTokoController;
+use App\Http\Controllers\SellerDashboardController;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\LoginBumdesController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/register-seller', [SellerController::class, 'create'])->name('seller.create');
+    Route::post('/register-seller', [SellerController::class, 'store'])->name('seller.store');
+});
+
 
 //REGIST USER
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -52,9 +59,7 @@ Route::get('/homePage/home', function () {
 
 Route::get('/seller/gemini', [GeminiController::class, 'index'])->name('seller.gemini');
 
-Route::get('/seller/dashboard', function () {
-    return view('seller.dashboard');
-})->name('seller.dashboard');
+
 
 // Halaman produk seller
 Route::get('/seller/produk', [ProductController::class, 'index'])->name('seller.products.index');
@@ -67,24 +72,92 @@ Route::delete('/seller/produk/{product}', [ProductController::class, 'destroy'])
 
 Route::post('/seller/produk', [ProductController::class, 'store'])->name('seller.products.store');
 
+
+Route::prefix('seller')->name('seller.')->middleware('auth')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
+
+    // Daftar pesanan
+    Route::get('/pesanan', [SellerDashboardController::class, 'pesanan'])->name('pesanan');
+
+    // Detail pesanan
+    Route::get('/pesanan/{id}', [SellerDashboardController::class, 'show'])->name('pesanan.show');
+
+    Route::patch('/pesanan/{id}/status', [SellerDashboardController::class, 'updateStatus'])->name('pesanan.updateStatus');
+
+    Route::patch('/pesanan/{id}/status/{status}', [SellerDashboardController::class, 'updateStatus'])
+    ->name('pesanan.updateStatus');
+
+});
+
+use App\Http\Controllers\LoginSuperAdminController;
+
+Route::prefix('superadmin')->group(function () {
+    // Form login
+    Route::get('/login', [LoginSuperAdminController::class, 'showLoginForm'])->name('superadmin.login');
+    Route::post('/login', [LoginSuperAdminController::class, 'login'])->name('superadmin.login.post');
+
+    // Logout
+    Route::post('/logout', [LoginSuperAdminController::class, 'logout'])->name('superadmin.logout');
+
+    // Dashboard khusus superadmin
+    Route::get('/dashboard', function () {
+        return view('superadmin.dashboard'); // buat view superadmin/dashboard.blade.php
+    })->middleware('auth')->name('superadmin.dashboard');
+});
+
+use App\Http\Controllers\SuperAdminController;
+
+Route::prefix('superadmin')->group(function () {
+    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
+    Route::get('/kelola-bumdes', [SuperAdminController::class, 'kelolaBumdes'])->name('superadmin.kelola-bumdes');
+    Route::post('/store-bumdes', [SuperAdminController::class, 'storeBumdes'])->name('superadmin.store-bumdes');
+    Route::post('/store-kategori', [SuperAdminController::class, 'storeKategori'])->name('superadmin.kategori.store');
+    Route::get('/daftar-bumdes', [SuperAdminController::class, 'daftarBumdes'])->name('superadmin.daftar-bumdes');
+    // Edit BUMDES
+    Route::get('/bumdes/{id}/edit', [SuperAdminController::class, 'editBumdes'])->name('superadmin.edit-bumdes');
+
+    // Update BUMDES
+    Route::put('/bumdes/{id}', [SuperAdminController::class, 'updateBumdes'])->name('superadmin.update-bumdes');
+
+    // Delete BUMDES
+    Route::delete('/bumdes/{id}', [SuperAdminController::class, 'deleteBumdes'])->name('superadmin.delete-bumdes');
+
+    Route::get('/toko', [SuperAdminController::class, 'manajemenToko'])->name('superadmin.toko');
+    Route::get('/toko/{id}/edit', [SuperAdminController::class, 'editToko'])->name('toko.edit');
+    Route::put('/toko/{id}', [SuperAdminController::class, 'updateToko'])->name('toko.update');
+    Route::delete('/toko/{id}', [SuperAdminController::class, 'destroyToko'])->name('toko.destroy');
+
+    Route::get('/transaksi', [SuperAdminController::class, 'manajemenTransaksi'])->name('superadmin.transaksi');
+    Route::get('/user', [SuperAdminController::class, 'manajemenUser'])->name('superadmin.user');
+    
+
+    // web.php
+    Route::get('/wilayah/kabupaten/{provinsiId}', [SellerController::class, 'getKabupaten']);
+    Route::get('/wilayah/kecamatan/{kabupatenId}', [SellerController::class, 'getKecamatan']);
+    Route::get('/wilayah/desa/{kecamatanId}', [SellerController::class, 'getDesa']);
+});
+
+Route::get('/bumdes/login', [LoginBumdesController::class, 'showLoginForm'])->name('bumdes.login');
+Route::post('/bumdes/login', [LoginBumdesController::class, 'login'])->name('bumdes.login.submit');
+Route::post('/bumdes/logout', [LoginBumdesController::class, 'logout'])->name('bumdes.logout');
+
 // khusus update
 Route::put('/seller/produk/{product}', [ProductController::class, 'update'])
     ->name('seller.products.update');
-
-
-// Pesanan
-Route::get('/seller/pesanan', function () {
-    return view('seller.pesanan');
-});
 
 // Laporan
 Route::get('/seller/laporan', function () {
     return view('seller.laporan');
 });
 
-// Profil UMKM
-Route::get('/seller/profil', function () {
-    return view('seller.profil');
+Route::prefix('seller')->name('seller.')->middleware(['auth'])->group(function () {
+    // Tampilkan halaman profil
+    Route::get('/profil', [SellerDashboardController::class, 'profil'])->name('profil');
+
+    // Update data profil
+    Route::patch('/profil', [SellerDashboardController::class, 'updateProfil'])->name('profil.update');
 });
 
 Route::prefix('bumdes')->middleware('auth')->group(function(){
@@ -126,6 +199,11 @@ Route::get('/produk/{id}', [ProductController::class, 'show'])->name('produk.sho
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::post('/pesanan/{id}/terima', [PesananController::class, 'terima'])->name('pesanan.terima');
+Route::post('/pesanan/{id}/ulasan', [PesananController::class, 'ulasan'])->name('pesanan.ulasan');
+
 
 
 // Reset password
@@ -180,10 +258,18 @@ Route::middleware('auth')->group(function() {
         ->name('checkout.tracking');
 });
 
-use App\Http\Controllers\SellerDashboardController;
+Route::prefix('bumdes')->name('bumdes.')->group(function () {
+    Route::get('/dashboard', [BumdesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/verifikasi', [VerifikasiTokoController::class, 'index'])->name('verifikasi');
+    Route::get('/usaha', [BumdesController::class, 'daftarUsaha'])->name('usaha');
+    Route::get('/seller', [BumdesController::class, 'manajemenSeller'])->name('seller');
+    Route::get('/laporan', [BumdesController::class, 'transaksiLaporan'])->name('laporan');
+    Route::get('/arsip', [BumdesController::class, 'arsipDokumen'])->name('arsip');
+    Route::get('/profil', [BumdesController::class, 'profil'])->name('profil');
+});
 
-Route::get('/seller/pesanan', [SellerDashboardController::class, 'index'])
-    ->name('seller.pesanan')
-    ->middleware('auth');
-
-
+// web.php
+Route::get('/wilayah/kabupaten/{provinsiId}', [SellerController::class, 'getKabupaten']);
+Route::get('/wilayah/kecamatan/{kabupatenId}', [SellerController::class, 'getKecamatan']);
+Route::get('/wilayah/desa/{kecamatanId}', [SellerController::class, 'getDesa']);
+Route::get('/wilayah/bumdes/{desaId}', [SellerController::class, 'getBumdes']);

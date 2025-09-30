@@ -31,8 +31,9 @@
 
         <!-- Gambar & Nama Produk -->
         <div class="flex items-center gap-4">
-            <img src="{{ $item->produk->gambar_produk ? asset($item->produk->gambar_produk) : 'https://placehold.co/60x60' }}" 
-                 alt="{{ $item->produk->nama_produk }}" class="w-16 h-16 object-cover rounded-lg shadow-sm">
+            <img src="{{ $item->produk->gambar_produk ? asset('storage/'.$item->produk->gambar_produk) : 'https://placehold.co/60x60' }}" 
+     alt="{{ $item->produk->nama_produk }}" class="w-16 h-16 object-cover rounded-lg shadow-sm">
+
             <span class="text-gray-800 font-medium">{{ $item->produk->nama_produk }}</span>
         </div>
 

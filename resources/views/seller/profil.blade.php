@@ -22,30 +22,27 @@
     <div class="bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-xl font-bold mb-6">Informasi Dasar Toko</h2>
         
-        <form action="#" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <form action="{{ route('seller.profil.update') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             @csrf
+            @method('PATCH')
 
             <!-- Form Kiri -->
             <div class="space-y-6">
                 <div>
                     <label for="nama_toko" class="block mb-2 font-semibold text-gray-700">Nama Toko <span class="text-red-500">*</span></label>
-                    <input type="text" name="nama_toko" id="nama_toko" value="UMKM Desa Maju" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                    <input type="text" name="nama_toko" id="nama_toko" value="{{ old('nama_toko', $toko->nama_toko) }}" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                 </div>
                 <div>
                     <label for="deskripsi" class="block mb-2 font-semibold text-gray-700">Deskripsi <span class="text-red-500">*</span></label>
-                    <textarea name="deskripsi" id="deskripsi" rows="4" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">Menjual aneka produk desa...</textarea>
+                    <textarea name="deskripsi" id="deskripsi" rows="4" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">{{ old('deskripsi', $toko->deskripsi) }}</textarea>
                 </div>
                 <div>
                     <label for="alamat" class="block mb-2 font-semibold text-gray-700">Alamat <span class="text-red-500">*</span></label>
-                    <input type="text" name="alamat" id="alamat" value="Jl. Desa No. 123" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                    <input type="text" name="alamat" id="alamat" value="{{ old('alamat', $toko->alamat) }}" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                 </div>
                 <div>
                     <label for="kontak" class="block mb-2 font-semibold text-gray-700">Nomor Kontak <span class="text-red-500">*</span></label>
-                    <input type="text" name="kontak" id="kontak" value="08123456789" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
-                </div>
-                <div>
-                    <label for="sku_dokumen" class="block mb-2 font-semibold text-gray-700">Upload Dokumen SKU</label>
-                    <input type="file" name="sku" id="sku_dokumen" class="w-full">
+                    <input type="text" name="kontak" id="kontak" value="{{ old('kontak', $toko->kontak) }}" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                 </div>
             </div>
 
@@ -54,14 +51,18 @@
                 <div>
                     <label for="foto_profil" class="block mb-2 font-semibold text-gray-700">Foto Profil Toko</label>
                     <div class="mt-2 flex items-center space-x-4">
-                        <img src="https://placehold.co/100x100" alt="Foto Profil" class="w-24 h-24 rounded-full border-2 border-gray-300 object-cover">
+                        <img src="{{ $toko->foto_profil ? asset('storage/' . $toko->foto_profil) : 'https://placehold.co/100x100' }}" 
+                            alt="Foto Profil" 
+                            class="w-24 h-24 rounded-full border-2 border-gray-300 object-cover">                       
                         <input type="file" name="foto_profil" id="foto_profil">
                     </div>
                 </div>
                 <div>
                     <label for="banner_toko" class="block mb-2 font-semibold text-gray-700">Banner Toko</label>
                     <div class="mt-2">
-                        <img src="https://placehold.co/600x200" alt="Banner Toko" class="w-full h-auto rounded-lg border-2 border-gray-300 object-cover">
+                        <img src="{{ $toko->banner ? asset('storage/' . $toko->banner) : 'https://placehold.co/600x200' }}" 
+                            alt="Banner Toko" 
+                            class="w-full h-auto rounded-lg border-2 border-gray-300 object-cover">                        
                         <input type="file" name="banner_toko" id="banner_toko" class="mt-4 w-full">
                     </div>
                 </div>

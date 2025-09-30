@@ -23,65 +23,116 @@
                 </thead>
                 <tbody>
                     @forelse($pesanan as $p)
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <!-- Produk dalam pesanan -->
-                            <td class="px-6 py-4">
-                                <div class="space-y-2">
-                                    @foreach($p->items as $item)
-                                        <div class="flex items-center space-x-3">
-                                            <img src="{{ $item->produk->gambar ?? 'https://placehold.co/50x50' }}" 
-                                                 alt="Produk" class="w-12 h-12 rounded-lg">
-                                            <div>
-                                                <div class="font-semibold text-gray-800">
-                                                    {{ $item->nama_produk_snapshot ?? $item->produk->nama_produk }}
-                                                </div>
-                                                <p class="text-xs text-gray-500">
-                                                    Jumlah: {{ $item->jumlah }} | Harga: Rp {{ number_format($item->total_harga_produk,0,',','.') }}
-                                                </p>
-                                            </div>
+                        @foreach($p->items as $index => $item)
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <!-- Nama Produk -->
+                                <td class="px-6 py-4 flex items-center space-x-3">
+                                    @if($item->produk && $item->produk->gambar_produk)
+                                        <img src="{{ asset('storage/' . $item->produk->gambar_produk) }}" 
+                                            alt="{{ $item->produk->nama_produk }}" 
+                                            class="w-12 h-12 rounded-lg object-cover" />
+                                    @else
+                                        <div class="w-12 h-12 rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
+                                            No Image
                                         </div>
-                                    @endforeach
-                                </div>
-                            </td>
+                                    @endif
+                                    <div>
+                                        <div class="font-semibold text-gray-800">
+                                            {{ $item->nama_produk_snapshot ?? optional($item->produk)->nama_produk ?? 'Produk tidak tersedia' }}
+                                        </div>
+                                        <p class="text-xs text-gray-500">
+                                            Jumlah: {{ $item->jumlah }}
+                                        </p>
+                                    </div>
+                                </td>
 
-                            <!-- Nama Pembeli -->
-                            <td class="px-6 py-4 font-semibold text-gray-800">
-                                {{ $p->pembeli->nama ?? 'User Tidak Ditemukan' }}
-                            </td>
+                                @if($index === 0)
+                                    <!-- Nama Pembeli -->
+                                    <td class="px-6 py-4 font-semibold text-gray-800" rowspan="{{ $p->items->count() }}">
+                                        {{ $p->pembeli->nama_pengguna ?? 'User Tidak Ditemukan' }}
+                                    </td>
 
-                            <!-- Total Harga -->
-                            <td class="px-6 py-4 font-bold text-gray-900">
-                                Rp {{ number_format($p->total_harga_produk + $p->biaya_pengiriman,0,',','.') }}
-                            </td>
+                                    <!-- Total Harga -->
+                                    <td class="px-6 py-4 font-bold text-gray-900" rowspan="{{ $p->items->count() }}">
+                                        Rp {{ number_format($p->total_harga_produk + $p->biaya_pengiriman,0,',','.') }}
+                                    </td>
 
-                            <!-- Status -->
-                            <td class="px-6 py-4">
-                                @php
-                                    $statusColor = match($p->status_pesanan) {
-                                        'pending' => 'bg-yellow-100 text-yellow-800',
-                                        'diproses' => 'bg-blue-100 text-blue-800',
-                                        'dikirim' => 'bg-purple-100 text-purple-800',
-                                        'selesai' => 'bg-green-100 text-green-800',
-                                        'dibatalkan' => 'bg-red-100 text-red-800',
-                                        default => 'bg-gray-100 text-gray-800',
-                                    };
-                                @endphp
-                                <span class="{{ $statusColor }} text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                    {{ ucfirst($p->status_pesanan) }}
-                                </span>
-                            </td>
+                                    <!-- Status -->
+                                    <td class="px-6 py-4" rowspan="{{ $p->items->count() }}">
+                                        @php
+                                            $statusColor = match($p->status_pesanan) {
+                                                'pending' => 'bg-yellow-100 text-yellow-800',
+                                                'diproses' => 'bg-blue-100 text-blue-800',
+                                                'dikirim' => 'bg-purple-100 text-purple-800',
+                                                'selesai' => 'bg-green-100 text-green-800',
+                                                'dibatalkan' => 'bg-red-100 text-red-800',
+                                                default => 'bg-gray-100 text-gray-800',
+                                            };
+                                        @endphp
+                                        <span class="{{ $statusColor }} text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                            {{ ucfirst($p->status_pesanan) }}
+                                        </span>
+                                    </td>
 
-                            <!-- Alamat -->
-                            <td class="px-6 py-4 text-gray-700">
-                                {{ $p->alamat->alamat_lengkap ?? '-' }}
-                            </td>
+                                    <!-- Alamat -->
+                                    <td class="px-6 py-4 text-gray-700" rowspan="{{ $p->items->count() }}">
+                                        {{ $p->alamat->alamat_lengkap ?? '-' }}
+                                    </td>
 
-                            <!-- Aksi -->
-                            <td class="px-6 py-4">
-                                <a href="{{ route('seller.pesanan.show', $p->id_pesanan) }}" 
-                                   class="font-medium text-blue-600 hover:underline">Rincian</a>
-                            </td>
-                        </tr>
+                                    <!-- Aksi -->
+                                    <td class="px-6 py-4" rowspan="{{ $p->items->count() }}">
+                                        <div class="flex flex-col space-y-1">
+
+                                            <!-- Tombol Proses -->
+                                            @if($p->status_pesanan === 'pending')
+                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'diproses']) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="px-3 py-1 text-xs rounded bg-blue-500 text-white hover:bg-blue-600 w-full">
+                                                        Proses
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                            <!-- Tombol Diantarkan -->
+                                            @if($p->status_pesanan === 'diproses')
+                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'diantarkan']) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="px-3 py-1 text-xs rounded bg-purple-500 text-white hover:bg-purple-600 w-full">
+                                                        Diantarkan
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                            <!-- Tombol Selesai -->
+                                            @if($p->status_pesanan === 'diantarkan')
+                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'selesai']) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600 w-full">
+                                                        Selesai
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            {{-- Seller menyelesaikan pesanan --}}
+                                            @if($p->status_seller === 'diterima')
+                                                <form action="{{ route('seller.pesanan.selesai', $p->id_pesanan) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                                        Tandai Selesai
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                @endif
+                            </tr>
+                        @endforeach
                     @empty
                         <tr>
                             <td colspan="6" class="text-center p-6 text-gray-500">Belum ada pesanan</td>
@@ -93,3 +144,4 @@
     </div>
 </div>
 @endsection
+                                            

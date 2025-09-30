@@ -22,4 +22,6 @@ class KategoriController extends Controller
             'produk'   => $produk,
         ]);
     }
+
+    
 }
