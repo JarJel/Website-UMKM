@@ -47,7 +47,7 @@ class Toko extends Model
 
     public function verifikasi()
     {
-        return $this->hasOne(VerifikasiToko::class, 'id_toko', 'id_toko');
+        return $this->hasMany(VerifikasiToko::class, 'id_toko', 'id_toko');
     }
 
     public function produk()
@@ -59,5 +59,10 @@ class Toko extends Model
     {
         return $this->hasMany(Pesanan::class, 'id_toko');
     }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+    }
+
 }
 

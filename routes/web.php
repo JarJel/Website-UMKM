@@ -15,16 +15,18 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\VerifikasiTokoController;
 use App\Http\Controllers\SellerDashboardController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\LoginBumdesController;
+use App\Http\Controllers\Ai\ChatSellerController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/register-seller', [SellerController::class, 'create'])->name('seller.create');
     Route::post('/register-seller', [SellerController::class, 'store'])->name('seller.store');
 });
-
+Route::post('/seller/chatbot/reply', [ChatSellerController::class, 'sendMessage'])
+    ->name('chatbot.seller.reply')
+    ->middleware('auth'); // pakai middleware sesuai kebutuhan
 
 //REGIST USER
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -84,12 +86,11 @@ Route::prefix('seller')->name('seller.')->middleware('auth')->group(function () 
     // Detail pesanan
     Route::get('/pesanan/{id}', [SellerDashboardController::class, 'show'])->name('pesanan.show');
 
-    Route::patch('/pesanan/{id}/status', [SellerDashboardController::class, 'updateStatus'])->name('pesanan.updateStatus');
-
-    Route::patch('/pesanan/{id}/status/{status}', [SellerDashboardController::class, 'updateStatus'])
-    ->name('pesanan.updateStatus');
-
+    // Update status pesanan
+    Route::post('/pesanan/{id}/status', [SellerDashboardController::class, 'updateStatus'])
+        ->name('pesanan.updateStatus');
 });
+
 
 use App\Http\Controllers\LoginSuperAdminController;
 
@@ -160,16 +161,41 @@ Route::prefix('seller')->name('seller.')->middleware(['auth'])->group(function (
     Route::patch('/profil', [SellerDashboardController::class, 'updateProfil'])->name('profil.update');
 });
 
-Route::prefix('bumdes')->middleware('auth')->group(function(){
-    Route::get('verifikasi-toko', [BumdesController::class, 'index'])->name('bumdes.verifikasi.index');
-    Route::get('verifikasi-toko/{id}/edit', [BumdesController::class, 'edit'])->name('bumdes.verifikasi.edit');
-    Route::post('verifikasi-toko/{id}/update', [BumdesController::class, 'update'])->name('bumdes.verifikasi.update');
+
+Route::prefix('bumdes')->name('bumdes.')->middleware('auth')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [BumdesController::class, 'dashboard'])->name('dashboard');
+
+    // Verifikasi seller
+    Route::get('/verifikasi', [BumdesController::class, 'index'])->name('verifikasi');
+    Route::get('/verifikasi/{id}', [BumdesController::class, 'show'])->name('verifikasi.show');
+
+    // Approve / Reject (POST, bukan PATCH)
+    Route::post('/verifikasi-seller/{id}/approve', [BumdesController::class, 'approve'])
+        ->name('verifikasi.approve');
+    Route::post('/verifikasi-seller/{id}/reject', [BumdesController::class, 'reject'])
+        ->name('verifikasi.reject');
+
+    // Daftar usaha
+    Route::get('/usaha', [BumdesController::class, 'daftarUsaha'])->name('usaha');
+
+    // Manajemen seller
+    Route::get('/seller', [BumdesController::class, 'manajemenSeller'])->name('seller');
+
+    // Laporan transaksi
+    Route::get('/laporan', [BumdesController::class, 'transaksiLaporan'])->name('laporan');
+
+    // Arsip dokumen
+    Route::get('/arsip', [BumdesController::class, 'arsipDokumen'])->name('arsip');
+
+    // Profil Bumdes
+    Route::get('/profil', [BumdesController::class, 'profil'])->name('profil');
 });
+
 
 Route::prefix('bumdes')->group(function () {
     Route::get('/dashboard', [BumdesController::class, 'dashboard'])->name('bumdes.dashboard');
-    Route::get('/verifikasi-seller', [BumdesController::class, 'verifikasiSeller'])->name('bumdes.verifikasi');
-    Route::get('/daftar-usaha', [BumdesController::class, 'daftarUsaha'])->name('bumdes.usaha');
+    Route::get('/verifikasi-seller', [BumdesController::class, 'verifikasi'])->name('bumdes.verifikasi');Route::get('/daftar-usaha', [BumdesController::class, 'daftarUsaha'])->name('bumdes.usaha');
     Route::get('/manajemen_seller', [BumdesController::class, 'manajemenSeller'])->name('bumdes.seller');
     Route::get('/transaksi-laporan', [BumdesController::class, 'transaksiLaporan'])->name('bumdes.laporan');
     Route::get('/arsip-dokumen', [BumdesController::class, 'arsipDokumen'])->name('bumdes.arsip');
@@ -260,7 +286,7 @@ Route::middleware('auth')->group(function() {
 
 Route::prefix('bumdes')->name('bumdes.')->group(function () {
     Route::get('/dashboard', [BumdesController::class, 'dashboard'])->name('dashboard');
-    Route::get('/verifikasi', [VerifikasiTokoController::class, 'index'])->name('verifikasi');
+    Route::get('/verifikasi', [BumdesController::class, 'verifikasi'])->name('verifikasi');
     Route::get('/usaha', [BumdesController::class, 'daftarUsaha'])->name('usaha');
     Route::get('/seller', [BumdesController::class, 'manajemenSeller'])->name('seller');
     Route::get('/laporan', [BumdesController::class, 'transaksiLaporan'])->name('laporan');

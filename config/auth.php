@@ -42,9 +42,14 @@ return [
         ],
 
         'bumdes' => [
-        'driver' => 'session',
-        'provider' => 'bumdes',
-    ],
+            'driver' => 'session',
+            'provider' => 'bumdes',
+        ],
+
+        'seller' => [
+            'driver' => 'session',
+            'provider' => 'sellers',
+        ],
     ],
 
     /*
@@ -77,6 +82,11 @@ return [
         'bumdes' => [
         'driver' => 'eloquent',
         'model' => App\Models\Bumdes::class, // sesuaikan dengan model Bumdes kamu
+    ],
+
+    'sellers' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Seller::class, // pastikan model Seller ada
     ],
     ],
 

@@ -58,6 +58,7 @@ class SellerController extends Controller
                 'slug_toko' => Str::slug($request->nama_toko),
                 'id_bumdes' => $request->id_bumdes,
                 'id_desa' => $request->id_desa,
+                'kontak'      => $request->kontak,
             ]);
 
             // Simpan dokumen ke verifikasi toko

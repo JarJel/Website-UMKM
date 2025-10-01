@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard Admin BUMDES')</title>
-    <link rel="icon" href="{{ asset('storage/BATARA/4.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/BATARA/1.png') }}" 
+            type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -71,7 +72,7 @@
         }
         
         /* Warna custom dari kode kedua */
-        .bg-primary { background-color: #1d4657; }
+        .bg-primary { background-color: #32846bff; }
         .text-primary { color: #1d4657; }
         .bg-secondary { background-color: #11676a; }
         .bg-accent { background-color: #b0b32a; }
@@ -90,7 +91,7 @@
 
     <aside id="sidebar" class="sidebar w-64 bg-primary text-white min-h-screen p-5">
         <div class="flex items-center justify-between mb-8">
-            <img src="{{ asset('storage/BATARA/3.png') }}" class="w-full h-full object-contain" alt="Logo Batara">
+            <img src="{{ asset('assets/BATARA/3.png') }}" class="w-full h-full object-contain" alt="Logo Batara">
             <button id="closeMenu" class="md:hidden">
                 <i class="fas fa-times"></i>
             </button>

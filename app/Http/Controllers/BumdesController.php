@@ -19,14 +19,12 @@ class BumdesController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil data bumdes sesuai user login
         $bumdes = Bumdes::where('id_pengguna', $user->id_pengguna)->first();
         $id_bumdes = $bumdes->id_bumdes ?? null;
 
-        // Statistik
         $totalToko = Toko::where('id_bumdes', $id_bumdes)->count();
 
-        $tokoTerverifikasi = VerifikasiToko::where('status_verifikasi', 'disetujui')
+        $tokoTerverifikasi = VerifikasiToko::where('status_verifikasi', 'approved')
             ->whereHas('toko', fn($q) => $q->where('id_bumdes', $id_bumdes))
             ->count();
 
@@ -34,12 +32,11 @@ class BumdesController extends Controller
             ->whereHas('toko', fn($q) => $q->where('id_bumdes', $id_bumdes))
             ->count();
 
-        $tokoDitolak = VerifikasiToko::where('status_verifikasi', 'ditolak')
+        $tokoDitolak = VerifikasiToko::where('status_verifikasi', 'rejected')
             ->whereHas('toko', fn($q) => $q->where('id_bumdes', $id_bumdes))
             ->count();
 
-        // 5 Aktivitas verifikasi terbaru
-        $aktivitasTerbaru = VerifikasiToko::with('toko.user') // ganti 'pengguna' jadi 'user'
+        $aktivitasTerbaru = VerifikasiToko::with('toko.user')
             ->whereHas('toko', fn($q) => $q->where('id_bumdes', $id_bumdes))
             ->orderBy('tanggal_verifikasi', 'desc')
             ->take(5)
@@ -66,18 +63,45 @@ class BumdesController extends Controller
         $id_bumdes = $bumdes->id_bumdes ?? null;
 
         $businesses = Toko::where('id_bumdes', $id_bumdes)
-            ->whereHas('verifikasi', fn($q) => $q->where('status_verifikasi', 'pending'))
-            ->with(['user', 'kategori']) // ganti 'pengguna' jadi 'user'
+            ->with(['verifikasi' => fn($q) => $q->latest('tanggal_verifikasi'), 'user', 'kategori'])
             ->paginate(10);
 
-        $totalPendingBusinesses = $businesses->total();
-        $categories = Kategori::where('id_bumdes', $id_bumdes)->get();
-
-        return view('backend.Bumdes.verifikasi', compact(
-            'businesses',
-            'totalPendingBusinesses',
-            'categories'
+        return view('bumdes.verifikasi_seller', compact(
+            'businesses'
         ));
+    }
+
+    /**
+     * Approve verifikasi toko
+     */
+    public function approve($id)
+{
+    $verifikasi = VerifikasiToko::findOrFail($id);
+    $verifikasi->status_verifikasi = 'approved';
+    $verifikasi->save();
+
+    return redirect()->route('bumdes.verifikasi')
+                     ->with('success', 'Usaha berhasil disetujui.');
+}
+
+public function reject($id)
+{
+    $verifikasi = VerifikasiToko::findOrFail($id);
+    $verifikasi->status_verifikasi = 'rejected';
+    $verifikasi->save();
+
+    return redirect()->route('bumdes.verifikasi')
+                     ->with('success', 'Usaha berhasil ditolak.');
+}
+
+
+    /**
+     * Detail verifikasi toko
+     */
+    public function showVerifikasi($id)
+    {
+        $verifikasi = VerifikasiToko::with('toko.user', 'toko.kategori')->findOrFail($id);
+        return view('backend.Bumdes.verifikasi_detail', compact('verifikasi'));
     }
 
     /**
@@ -90,10 +114,10 @@ class BumdesController extends Controller
         $id_bumdes = $bumdes->id_bumdes ?? null;
 
         $usaha = Toko::where('id_bumdes', $id_bumdes)
-            ->with(['user', 'kategori']) // ganti 'pengguna' jadi 'user'
+            ->with(['user', 'kategori'])
             ->get();
 
-        return view('backend.Bumdes.daftarUsaha', compact('usaha'));
+        return view('bumdes.daftarUsaha', compact('usaha'));
     }
 
     /**
@@ -120,7 +144,7 @@ class BumdesController extends Controller
         $id_bumdes = $bumdes->id_bumdes ?? null;
 
         $transaksi = VerifikasiToko::whereHas('toko', fn($q) => $q->where('id_bumdes', $id_bumdes))
-            ->with('toko.user') // ganti 'pengguna' jadi 'user'
+            ->with('toko.user')
             ->orderBy('tanggal_verifikasi', 'desc')
             ->get();
 

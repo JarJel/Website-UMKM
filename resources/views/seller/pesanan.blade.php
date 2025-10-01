@@ -84,49 +84,41 @@
                                         <div class="flex flex-col space-y-1">
 
                                             <!-- Tombol Proses -->
-                                            @if($p->status_pesanan === 'pending')
-                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'diproses']) }}" method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                        class="px-3 py-1 text-xs rounded bg-blue-500 text-white hover:bg-blue-600 w-full">
-                                                        Proses
-                                                    </button>
-                                                </form>
-                                            @endif
+                                        @if($p->status_pesanan === 'pending')
+                                            <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" value="diproses">
+                                                <button type="submit"
+                                                    class="px-3 py-1 text-xs rounded bg-blue-500 text-white hover:bg-blue-600 w-full">
+                                                    Proses
+                                                </button>
+                                            </form>
+                                        @endif
 
-                                            <!-- Tombol Diantarkan -->
-                                            @if($p->status_pesanan === 'diproses')
-                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'diantarkan']) }}" method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                        class="px-3 py-1 text-xs rounded bg-purple-500 text-white hover:bg-purple-600 w-full">
-                                                        Diantarkan
-                                                    </button>
-                                                </form>
-                                            @endif
+                                        <!-- Tombol Diantarkan -->
+                                        @if($p->status_pesanan === 'diproses')
+                                            <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" value="diantarkan">
+                                                <button type="submit"
+                                                    class="px-3 py-1 text-xs rounded bg-purple-500 text-white hover:bg-purple-600 w-full">
+                                                    Diantarkan
+                                                </button>
+                                            </form>
+                                        @endif
 
-                                            <!-- Tombol Selesai -->
-                                            @if($p->status_pesanan === 'diantarkan')
-                                                <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan, 'selesai']) }}" method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"
-                                                        class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600 w-full">
-                                                        Selesai
-                                                    </button>
-                                                </form>
-                                            @endif
-                                            {{-- Seller menyelesaikan pesanan --}}
-                                            @if($p->status_seller === 'diterima')
-                                                <form action="{{ route('seller.pesanan.selesai', $p->id_pesanan) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                                        Tandai Selesai
-                                                    </button>
-                                                </form>
-                                            @endif
+                                        <!-- Tombol Selesai -->
+                                        @if($p->status_pesanan === 'diantarkan')
+                                            <form action="{{ route('seller.pesanan.updateStatus', [$p->id_pesanan]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" value="selesai">
+                                                <button type="submit"
+                                                    class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600 w-full">
+                                                    Selesai
+                                                </button>
+                                            </form>
+                                        @endif
+
                                         </div>
                                     </td>
 

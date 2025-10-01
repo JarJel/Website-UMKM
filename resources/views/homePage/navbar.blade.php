@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navbar</title>
+  <link rel="icon" href="{{ asset('assets/BATARA/1.png') }}" 
+            type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -15,7 +17,7 @@
         <!-- Logo -->
         <div class="w-[175px] h-[80px] flex-shrink-0">
           <a href="{{ route('home') }}">
-            <img src="{{ asset('assets/imageInternal/logoBatara.png') }}"
+            <img src="{{ asset('assets/BATARA/3.png') }}"
                  class="w-full h-full object-contain"
                  alt="Logo Batara">
           </a>

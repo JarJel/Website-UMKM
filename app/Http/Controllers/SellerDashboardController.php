@@ -80,20 +80,19 @@ class SellerDashboardController extends Controller
     }
 
 
-    public function updateStatus($id, $status)
+    public function updateStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+
         $pesanan = Pesanan::findOrFail($id);
-
-        $allowed = ['diproses', 'diantarkan', 'selesai'];
-        if (!in_array($status, $allowed)) {
-            return back()->with('error', 'Status tidak valid.');
-        }
-
-        $pesanan->status_pesanan = $status;
+        $pesanan->status_pesanan = $request->status; // ✅ pakai field sesuai DB
         $pesanan->save();
 
-        return back()->with('success', "Pesanan #{$pesanan->id_pesanan} berhasil diubah menjadi {$status}.");
+        return redirect()->route('seller.pesanan')->with('success', 'Status pesanan berhasil diperbarui!');
     }
+
 
     public function profil()
     {

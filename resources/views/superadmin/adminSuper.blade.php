@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard Super Admin')</title>
-    <link rel="icon" href="{{ asset('storage/BATARA/4.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/BATARA/1.png') }}" 
+            type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --primary: #1d4657;
-            --secondary: #11676a;
+            --primary: #2c6882ff;
+            --secondary: #116a42ff;
             --accent: #b0b32a;
         }
         body {
@@ -90,9 +91,8 @@
         <aside id="sidebar" class="sidebar w-64 text-white flex flex-col transition-transform duration-300 ease-in-out">
             <div class="p-6">
                 <div class="flex items-center space-x-3 mb-8">
-                    <div class="p-3 rounded-lg bg-white bg-opacity-10">
-                        <img src="{{ asset('storage/BATARA/3.png') }}" class="w-full h-full object-contain" alt="Logo Batara">        
-                    </div>
+                   <img src="{{ asset('assets/BATARA/3.png') }}" class="w-full h-full object-contain" alt="Logo Batara">
+                  
                 </div>
                 <nav class="space-y-2">
                     <a href="{{ url('/superadmin/dashboard') }}" class="nav-item flex items-center px-4 py-3 rounded-lg {{ Request::is('superadmin/dashboard') ? 'active' : '' }}">

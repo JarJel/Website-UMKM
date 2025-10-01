@@ -1,96 +1,102 @@
-@extends('layouts.bumdes')
+@extends('bumdes.bumdes')
 
-@section('title', 'Verifikasi Usaha Seller - BUMDES')
+@section('title', 'Verifikasi Usaha Seller')
 @section('page_title', 'Daftar Usaha Menunggu Verifikasi')
 @section('page_description', 'Verifikasi usaha seller yang mendaftar di platform BUMDES')
 
 @section('content')
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div class="flex flex-col md:flex-row md:items-center gap-4 w-full md:w-auto">
-                <div class="relative w-full md:w-64">
-                    <input type="text" placeholder="Cari toko atau pemilik..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent w-full">
-                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                </div>
-                <select class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent w-full md:w-auto">
-                    <option>Semua Kategori</option>
-                    {{-- Loop data kategori dari database --}}
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="text-sm text-gray-600 flex-shrink-0">
-                {{-- Menampilkan jumlah data yang menunggu verifikasi --}}
-                <span class="font-semibold">{{ $totalPendingBusinesses }}</span> usaha menunggu verifikasi
-            </div>
+<div class="space-y-6">
+
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            {{ session('success') }}
         </div>
-    </div>
+    @endif
 
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <h2 class="text-xl font-bold p-6 border-b">{{ $businesses->total() }} Usaha Menunggu Verifikasi</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Toko</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pemilik</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Daftar</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        <th class="px-6 py-3">Nama Toko</th>
+                        <th class="px-6 py-3">Pemilik</th>
+                        <th class="px-6 py-3">Tanggal Daftar</th>
+                        <th class="px-6 py-3">Status</th>
+                        <th class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($businesses as $business)
-                    <tr class="verification-item">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-store text-gray-600"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $business->nama_toko }}</div>
-                                    <div class="text-sm text-gray-500">ID: {{ $business->id }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $business->pemilik }}</div>
-                            <div class="text-sm text-gray-500">{{ $business->email }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">{{ $business->kategori }}</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ \Carbon\Carbon::parse($business->tanggal_daftar)->format('d M Y') }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center space-x-2">
-                                <button class="bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                                <button class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button class="bg-accent text-white px-3 py-1 rounded-md hover:bg-accent/90">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                <tbody>
+                    @forelse($businesses as $business)
+                        @php
+                            $verifikasi = $business->verifikasi?->first();
+                            $statusColor = match($verifikasi?->status_verifikasi) {
+                                'pending' => 'bg-yellow-100 text-yellow-800',
+                                'approved' => 'bg-green-100 text-green-800',
+                                'rejected' => 'bg-red-100 text-red-800',
+                                default => 'bg-gray-100 text-gray-800',
+                            };
+                        @endphp
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4 font-semibold text-gray-800">{{ $business->nama_toko }}</td>
+                            <td class="px-6 py-4 text-gray-700">
+                                {{ $business->user->name ?? $business->pemilik }}
+                                <br>
+                                <span class="text-xs text-gray-500">{{ $business->user->email ?? $business->email }}</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">{{ \Carbon\Carbon::parse($business->tanggal_daftar)->format('d M Y') }}</td>
+                            <td class="px-6 py-4">
+                                <span class="{{ $statusColor }} text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                    {{ ucfirst($verifikasi->status_verifikasi ?? 'Belum Diverifikasi') }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                @if($verifikasi)
+                                    <div class="flex flex-col space-y-1">
+                                        {{-- Tombol Approve --}}
+                                        @if($verifikasi->status_verifikasi === 'pending')
+                                            <form action="{{ route('bumdes.verifikasi.approve', $verifikasi->id_verifikasi_toko) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1 w-full text-xs rounded bg-green-500 text-white hover:bg-green-600">
+                                                    ✔ Setujui
+                                                </button>
+                                            </form>
+
+                                            <form action="{{ route('bumdes.verifikasi.reject', $verifikasi->id_verifikasi_toko) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1 w-full text-xs rounded bg-red-500 text-white hover:bg-red-600">
+                                                    ✖ Tolak
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        {{-- Tombol Lihat --}}
+                                        <a href="{{ route('bumdes.verifikasi.show', $verifikasi->id_verifikasi_toko) }}"
+                                           class="px-3 py-1 w-full text-xs rounded bg-blue-500 text-white hover:bg-blue-600 text-center">
+                                           👁 Lihat
+                                        </a>
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center p-6 text-gray-500">Belum ada pengajuan verifikasi</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
 
+    {{-- Pagination --}}
     <div class="flex justify-between items-center mt-6">
         <div class="text-sm text-gray-600">
-            {{-- Menampilkan 4 dari 12 usaha --}}
             Menampilkan {{ $businesses->firstItem() }} hingga {{ $businesses->lastItem() }} dari {{ $businesses->total() }} usaha
         </div>
         <div class="flex space-x-2">
-            {{-- Tombol navigasi pagination --}}
             {{ $businesses->links() }}
         </div>
     </div>
+</div>
 @endsection
