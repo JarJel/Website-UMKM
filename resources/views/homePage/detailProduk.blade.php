@@ -124,7 +124,9 @@
               </div>
               <div>
                 <p class="font-semibold text-gray-800">{{ $ulasan->user->nama_pengguna }}</p>
-                <p class="text-sm text-gray-500">{{ $ulasan->created_at->format('d M Y') }}</p>
+                <p class="text-sm text-gray-500">
+                    {{ \Carbon\Carbon::parse($ulasan->tanggal_ulasan)->format('d M Y') }}
+                </p>
               </div>
             </div>
             <div class="mt-2 flex items-center">
@@ -132,7 +134,7 @@
                 <i class="fas fa-star {{ $i <= $ulasan->rating ? 'text-yellow-400' : 'text-gray-300' }}"></i>
               @endfor
             </div>
-            <p class="mt-2 text-gray-700">{{ $ulasan->komentar }}</p>
+            <p class="mt-2 text-gray-700">{{ $ulasan->komentar_ulasan }}</p>
           </div>
         @endforeach
       </div>

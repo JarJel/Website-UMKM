@@ -7,7 +7,10 @@ use App\Models\PesananPending;
 use App\Models\ItemPesanan;
 use App\Models\Alamat;
 use App\Models\Product;
+use Midtrans\Snap;
+use Midtrans\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -30,53 +33,144 @@ class CheckoutController extends Controller
             'id_alamat' => 'required|exists:alamat,id_alamat',
         ]);
 
-        $pesananPending = PesananPending::findOrFail($id_pending);
-
+        $pesananPending = PesananPending::with('items')->findOrFail($id_pending);
         $alamat = Alamat::find($request->id_alamat);
+        $metode_pembayaran = $request->input('metode');
 
-        DB::transaction(function() use ($pesananPending, $alamat) {
-            // buat pesanan baru
-            $pesanan = new Pesanan();
-            $pesanan->id_pengguna         = auth()->id();
-            $pesanan->id_toko             = $pesananPending->id_toko;
-            $pesanan->id_alamat           = $alamat->id_alamat;
-            $pesanan->total_harga_produk  = $pesananPending->total_harga_produk;
-            $pesanan->biaya_pengiriman    = $pesananPending->biaya_pengiriman;
-            $pesanan->metode_pembayaran   = 'transfer';
-            $pesanan->status_pesanan      = 'pending';
-            $pesanan->tanggal_pesanan     = now();
-            $pesanan->save();
+        // 1. Simpan pesanan ke database permanen (tabel 'pesanan')
+        try {
+            $pesanan = DB::transaction(function() use ($pesananPending, $alamat, $metode_pembayaran) {
+                $pesanan = new Pesanan();
+                $pesanan->id_pengguna         = auth()->id();
+                $pesanan->id_toko             = $pesananPending->id_toko;
+                $pesanan->id_alamat           = $alamat->id_alamat;
+                $pesanan->total_harga_produk  = $pesananPending->total_harga_produk;
+                $pesanan->biaya_pengiriman    = $pesananPending->biaya_pengiriman;
+                $pesanan->metode_pembayaran   = $metode_pembayaran; // Gunakan metode dari request
+                $pesanan->status_pesanan      = 'pending';
+                $pesanan->tanggal_pesanan     = now();
+                $pesanan->save();
 
-            // simpan item pesanan & kurangi stok
-            foreach ($pesananPending->items as $item) {
-                $pesanan->items()->create([
-                    'id_produk' => $item->id_produk,
-                    'id_varian' => $item->id_varian ?? null,
-                    'jumlah'    => $item->jumlah,
-                    'harga_saat_pesan' => $item->harga,
-                    'nama_produk_snapshot' => $produk->nama_produk ?? null,
-                    'berat_per_item_kg' => $item->berat_per_item_kg ?? 0,
-                ]);
+                foreach ($pesananPending->items as $item) {
+                    $produk = Product::find($item->id_produk);
 
-                $produk = Product::find($item->id_produk);
-                if($produk){
-                    $produk->stok = max(0, $produk->stok - $item->jumlah);
+                    $pesanan->items()->create([
+                        'id_produk' => $item->id_produk,
+                        'id_varian' => $item->id_varian ?? null,
+                        'jumlah'    => $item->jumlah,
+                        'harga_saat_pesan' => $item->harga,
+                        'nama_produk_snapshot' => $produk->nama_produk ?? null,
+                        'berat_per_item_kg' => $item->berat_per_item_kg ?? 0,
+                    ]);
 
-                    // update jumlah terjual
-                    $produk->terjual = ($produk->terjual ?? 0) + $item->jumlah;
-
-                    $produk->save();
+                    if($produk){
+                        $produk->stok = max(0, $produk->stok - $item->jumlah);
+                        $produk->terjual = ($produk->terjual ?? 0) + $item->jumlah;
+                        $produk->save();
+                    }
                 }
+
+                // Hapus PesananPending setelah berhasil disimpan
+                $pesananPending->delete();
+                
+                return $pesanan;
+            });
+        } catch (\Exception $e) {
+            Log::error("DB Transaction Failed: " . $e->getMessage());
+            return response()->json(['success' => false, 'error' => 'Gagal menyimpan pesanan.', 'message' => $e->getMessage()], 500);
+        }
+
+        // Jika metode CASH, langsung kembalikan sukses
+        if ($metode_pembayaran === 'cash') {
+            return response()->json([
+                'success' => true,
+                'id_pesanan' => $pesanan->id_pesanan
+            ]);
+        }
+
+        // 2. Jika metode MIDTRANS, Generate Snap Token
+        try { 
+            $order_id = 'ORDER-' . $pesanan->id_pesanan . '-' . time();
+            $gross_amount = $pesanan->total_harga_produk + $pesanan->biaya_pengiriman;
+            
+            $params = [
+                'transaction_details' => [
+                    'order_id' => $order_id,
+                    'gross_amount' => $gross_amount,
+                ],
+                'customer_details' => [
+                    'first_name' => auth()->user()->nama_pengguna ?? 'Pengguna',
+                    'email' => auth()->user()->email ?? 'email@dummy.com',
+                ],
+                // Anda juga bisa menambahkan 'item_details' di sini
+            ];
+
+            // Konfigurasi Midtrans
+            Config::$serverKey = config('services.midtrans.server_key');
+            Config::$isProduction = config('services.midtrans.is_production', false);
+            Config::$isSanitized = true;
+            Config::$is3ds = true;
+
+
+            $snapToken = Snap::getSnapToken($params);
+
+            // Simpan Order ID dan Snap Token jika diperlukan untuk callback atau status
+            // Jika Anda memiliki tabel Transaksi, simpan di sana.
+            // Jika tidak, Anda dapat menyimpannya di kolom Pesanan.
+            // $pesanan->update(['snap_token' => $snapToken, 'midtrans_order_id' => $order_id]);
+            
+            return response()->json([
+                'success' => true,
+                'snap_token' => $snapToken, // Ubah key menjadi snap_token agar konsisten
+                'id_pesanan' => $pesanan->id_pesanan
+            ]);
+
+        } catch (\Exception $e) {
+            // Tulis error ke log
+            Log::error("Midtrans Snap Error pada Pesanan ID {$pesanan->id_pesanan}: " . $e->getMessage());
+            
+            // Kembalikan respons 500 yang informatif ke frontend
+            return response()->json([
+                'success' => false,
+                'error' => 'Gagal membuat token pembayaran Midtrans.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    // =======================
+    // CALLBACK MIDTRANS (Tidak Berubah)
+    // =======================
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash('sha512', 
+            $request->order_id . 
+            $request->status_code . 
+            $request->gross_amount . 
+            $serverKey
+        );
+
+        if ($hashed == $request->signature_key) {
+            // ORDER-123-timestamp -> Ambil ID pesanan 123
+            $id_pesanan = explode('-', $request->order_id)[1]; 
+            $pesanan = Pesanan::find($id_pesanan);
+
+            if ($pesanan) {
+                if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
+                    $pesanan->status_pesanan = 'dibayar';
+                } elseif ($request->transaction_status == 'pending') {
+                    // Biarkan status tetap 'pending'
+                    // $pesanan->status_pesanan = 'pending'; 
+                } elseif ($request->transaction_status == 'cancel' || $request->transaction_status == 'expire') {
+                    $pesanan->status_pesanan = 'batal';
+                }
+                $pesanan->save();
             }
+        }
 
-            // hapus pesanan pending
-            $pesananPending->delete();
-        });
-
-        return response()->json([
-            'success' => true,
-            'id_pesanan' => $pesanan->id_pesanan ?? null
-        ]);
+        return response()->json(['success' => true]);
     }
 
 

@@ -63,36 +63,43 @@ class BumdesController extends Controller
         $id_bumdes = $bumdes->id_bumdes ?? null;
 
         $businesses = Toko::where('id_bumdes', $id_bumdes)
-            ->with(['verifikasi' => fn($q) => $q->latest('tanggal_verifikasi'), 'user', 'kategori'])
+            ->with(['verifikasi' => fn($q) => $q->latest('tanggal_verifikasi')->take(1), 'user', 'kategori'])
             ->paginate(10);
 
-        return view('bumdes.verifikasi_seller', compact(
-            'businesses'
-        ));
+        return view('bumdes.verifikasi_seller', compact('businesses'));
     }
+
 
     /**
      * Approve verifikasi toko
      */
     public function approve($id)
-{
-    $verifikasi = VerifikasiToko::findOrFail($id);
-    $verifikasi->status_verifikasi = 'approved';
-    $verifikasi->save();
+    {
+        $verifikasi = VerifikasiToko::findOrFail($id);
+        $verifikasi->status_verifikasi = 'approved';
+        $verifikasi->save();
 
-    return redirect()->route('bumdes.verifikasi')
-                     ->with('success', 'Usaha berhasil disetujui.');
-}
+        return redirect()->route('bumdes.verifikasi')
+                        ->with('success', 'Usaha berhasil disetujui.');
+    }
 
-public function reject($id)
-{
-    $verifikasi = VerifikasiToko::findOrFail($id);
-    $verifikasi->status_verifikasi = 'rejected';
-    $verifikasi->save();
+    public function reject($id)
+    {
+        $verifikasi = VerifikasiToko::findOrFail($id);
+        $verifikasi->status_verifikasi = 'rejected';
+        $verifikasi->save();
 
-    return redirect()->route('bumdes.verifikasi')
-                     ->with('success', 'Usaha berhasil ditolak.');
-}
+        return redirect()->route('bumdes.verifikasi')
+                        ->with('success', 'Usaha berhasil ditolak.');
+    }
+
+    public function showFormBumdes()
+        {
+            // Ambil data jika perlu, misal provinsi
+            $provinsis = \App\Models\Provinsi::all(); 
+
+            return view('bumdes.register', compact('provinsis'));
+        }
 
 
     /**

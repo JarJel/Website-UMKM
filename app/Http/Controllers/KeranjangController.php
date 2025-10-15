@@ -49,6 +49,37 @@ class KeranjangController extends Controller
         return back()->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
 
+    public function getData()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['items' => []]);
+        }
+
+        $keranjang = $user->keranjang;
+
+        if (!$keranjang) {
+            return response()->json(['items' => []]);
+        }
+
+        // Ambil semua item dengan data produk
+        $items = $keranjang->itemKeranjang()
+            ->with('produk')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'nama' => $item->produk->nama_produk ?? 'Produk Tidak Dikenal',
+                    'harga' => $item->produk->harga ?? 0,
+                    'jumlah' => $item->jumlah_produk,
+                    'image' => $item->produk->gambar ?? '/images/default.jpg',
+                ];
+            });
+
+        return response()->json(['items' => $items]);
+    }
+
+
     public function index()
     {
         $user = Auth::user();

@@ -11,12 +11,27 @@
         .container-padding { padding: 1rem; }
         @media (min-width: 768px) { .container-padding { padding: 2rem; } }
         html { scroll-behavior: smooth; }
+        
+        /* 1. Definisikan Animasi Fade In */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 2. Style untuk Animasi */
+        .fade-in-element {
+            /* Terapkan animasi ke elemen turunan */
+            animation: fadeIn 0.6s ease-out forwards;
+            /* Inisialisasi opacity ke 0 sebelum diaktifkan JS */
+            opacity: 0;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
     @include('homePage.navbar')
 
-    <main class="container mx-auto container-padding flex-grow">
+    <!-- Tambahkan class 'opacity-0' secara default. Ini akan diubah oleh JS. -->
+    <main id="main-content" class="container mx-auto container-padding flex-grow opacity-0 transition-opacity">
 
         <!-- Banner -->
         <section id="banner-section" class="relative rounded-xl overflow-hidden shadow-lg mb-8">
@@ -120,26 +135,55 @@
 
 <script src="//unpkg.com/alpinejs" defer></script>
 <script>
-function productFilter(initialSort) {
-    return {
-        open: false,
-        selected: initialSort,
-        selectedText: initialSort === 'newest' ? 'Terbaru' :
-                      initialSort === 'lowest' ? 'Harga Terendah' :
-                      initialSort === 'highest' ? 'Harga Tertinggi' : 'Urutkan',
-        options: [
-            { text: 'Terbaru', value: 'newest' },
-            { text: 'Harga Terendah', value: 'lowest' },
-            { text: 'Harga Tertinggi', value: 'highest' }
-        ],
-        changeSort(sortValue) {
-            // Ganti query param sort dan scroll ke section produk
-            const url = new URL(window.location.href);
-            url.searchParams.set('sort', sortValue);
-            window.location.href = url + '#product-grid';
+    // Inisialisasi Alpine.js data
+    function productFilter(initialSort) {
+        return {
+            open: false,
+            selected: initialSort,
+            selectedText: initialSort === 'newest' ? 'Terbaru' :
+                          initialSort === 'lowest' ? 'Harga Terendah' :
+                          initialSort === 'highest' ? 'Harga Tertinggi' : 'Urutkan',
+            options: [
+                { text: 'Terbaru', value: 'newest' },
+                { text: 'Harga Terendah', value: 'lowest' },
+                { text: 'Harga Tertinggi', value: 'highest' }
+            ],
+            changeSort(sortValue) {
+                // Ganti query param sort dan scroll ke section produk
+                const url = new URL(window.location.href);
+                url.searchParams.set('sort', sortValue);
+                window.location.href = url + '#product-grid';
+            }
         }
     }
-}
+
+    // Skrip untuk Animasi Fade In
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainContent = document.getElementById('main-content');
+        
+        // Timeout pendek untuk memastikan semua CSS dan elemen dimuat, 
+        // termasuk inisialisasi Alpine.js (karena Alpine dimuat 'defer')
+        setTimeout(() => {
+            // 1. Hapus class opacity-0
+            mainContent.classList.remove('opacity-0');
+            // 2. Tambahkan class fade-in-element ke setiap elemen di dalam main,
+            //    untuk animasi bertahap (staggered fade-in)
+            const children = mainContent.children;
+
+            Array.from(children).forEach((child, index) => {
+                // Terapkan penundaan berdasarkan indeks agar muncul bergantian
+                child.style.animationDelay = `${index * 0.1}s`;
+                child.classList.add('fade-in-element');
+            });
+
+            // 3. (Opsional) Tambahkan animasi untuk footer juga
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.style.animationDelay = `${children.length * 0.1}s`;
+                footer.classList.add('fade-in-element');
+            }
+        }, 100); // Penundaan 100ms
+    });
 </script>
 </body>
 </html>

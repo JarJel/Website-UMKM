@@ -24,6 +24,12 @@ class Product extends Model
         'tanggal_ditambahkan',
     ];
 
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class, 'id_produk', 'id_produk');
+    }
+
+
     public function itemKeranjang()
     {
         return $this->hasMany(ItemKeranjang::class, 'id_produk');

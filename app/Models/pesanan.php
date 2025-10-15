@@ -26,6 +26,13 @@ class Pesanan extends Model
         'status_pesanan' => 'string',
     ];
 
+    public function ulasan()
+    {
+        return $this->hasMany(\App\Models\Ulasan::class, 'id_pengguna', 'id_pengguna');
+    }
+
+
+
     // Relasi ke User (pembeli)
     public function pembeli()
     {
@@ -48,6 +55,16 @@ class Pesanan extends Model
     public function toko()
     {
         return $this->belongsTo(Toko::class, 'id_toko');
+    }
+
+    public function produk()
+    {
+        return $this->belongsTo(Product::class, 'id_produk', 'id_produk');
+    }
+
+    public function itemPesanan()
+    {
+        return $this->hasMany(\App\Models\ItemPesanan::class, 'id_pesanan');
     }
 
     /**
